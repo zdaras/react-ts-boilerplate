@@ -1,0 +1,50 @@
+.two-fa-code {
+	width: auto !important;
+
+	div {
+		display: flex;
+		justify-content: center;
+	}
+
+	input {
+    cursor: pointer;
+		transition: 0.1s;
+		max-width: 60px;
+		width: 40px !important;
+		border: unset !important;
+		border-left: solid 2px transparent !important;
+		border-top: solid 2px transparent !important;
+		border-bottom: solid 2px #d2d2d2 !important;
+		margin: 0 8px;
+
+		&:focus {
+			outline: none;
+			border-bottom: 2px solid #2496f7 !important;
+      caret-color: transparent !important;
+		}
+
+		&:first-child {
+			border-top-left-radius: 2px !important;
+			border-bottom-left-radius: 2px !important;
+		}
+
+		&:last-child {
+			border-right: solid 2px transparent !important;
+			border-top-right-radius: 2px !important;
+			border-bottom-right-radius: 2px !important;
+		}
+
+		&::selection {
+			background-color: transparent;
+		}
+
+		&::-moz-selection {
+			background-color: transparent;
+		}
+
+		@media (min-width: 64rem) {
+			width: 49px !important;
+			height: 54px !important;
+		}
+	}
+}

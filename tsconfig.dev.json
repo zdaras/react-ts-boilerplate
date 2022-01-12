@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+      "target": "es6",
+      "module": "esnext",
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
+      "sourceMap": true,
+      "pretty": true,
+      "isolatedModules": true,
+			"noEmitOnError": false
+  }
+}
