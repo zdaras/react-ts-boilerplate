@@ -77,6 +77,7 @@ instance.interceptors.response.use(
 					}
 				} catch (err) {
 					store.dispatch<any>(userActions.logout());
+					// @ts-ignore
 					return Promise.reject(err?.response?.data);
 				}
 			} else {

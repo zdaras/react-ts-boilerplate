@@ -66,8 +66,8 @@ const config: IConfiguration = {
 	bail: false,
 	devtool: 'inline-source-map',
 	devServer: {
+		open: true,
 		port: 8080,
-		host: '0.0.0.0',
 		hot: true,
 		noInfo: true,
 		clientLogLevel: 'error',

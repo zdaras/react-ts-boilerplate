@@ -4,11 +4,7 @@ export const ILoginValidator = ts.type({
 	access_token: ts.string,
 	expires_in: ts.number,
 	refresh_expires_in: ts.number,
-	refresh_token: ts.string,
-	token_type: ts.string,
-	'not-before-policy': ts.number,
-	session_state: ts.string,
-	scope: ts.string
+	refresh_token: ts.string
 });
 
 export type ILoginResponse = ts.TypeOf<typeof ILoginValidator>;

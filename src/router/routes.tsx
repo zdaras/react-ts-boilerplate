@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import { RouteComponentProps } from 'react-router';
 import loadable from '@loadable/component';
 
-import { isAuthRedir, userIsNotAuthenticatedRedir } from '@/components/hoc/auth';
+import { userIsNotAuthenticatedRedir } from '@/components/hoc/auth';
 import { BlankLayout, MainLayout } from '@/components/layout';
 import Login from '@/pages/login';
 import Register from '@/pages/register';
-import PasswordRecovery from '@/pages/password-recovery';
 import Dashboard from '@/pages/dashboard';
 
 export const AsyncPage: any = loadable(
@@ -39,19 +38,22 @@ export const routes: IRoute[] = [
 		path: '/password-recovery',
 		exact: false,
 		showInMenu: false,
-		component: userIsNotAuthenticatedRedir(PasswordRecovery),
+		component: (props: RouteComponentProps) => <AsyncPage page="password-recovery" {...props} />,
 		Layout: BlankLayout
 	},
 	{
 		path: '/',
+		name: 'Dashboard',
 		exact: false,
-		showInMenu: false,
-		component: isAuthRedir(Dashboard),
+		showInMenu: true,
+		component: Dashboard,
 		Layout: MainLayout
 	}
 ];
 
 export const router = [{ routes }];
+
+export const sidebarMenuList = routes.filter(i => i.showInMenu); // show in sidebar
 
 interface IAsyncPageProps {
 	page: string;
@@ -59,6 +61,7 @@ interface IAsyncPageProps {
 
 export interface IRoute {
 	path?: string;
+	name?: string;
 	exact?: boolean;
 	showInMenu: boolean;
 	component: any;

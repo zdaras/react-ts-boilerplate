@@ -1,36 +1,37 @@
 import { ThunkA } from '@/types';
 import { ILoginParams, IRecoverPasswordParams, IRegisterParams } from '@/services/api/user/types';
 import Api from '@/services/api';
-import { auth } from '@/services/firebase';
-import app, { appActions } from '@/store/ducks/app';
+import { appActions } from '@/store/ducks/app';
 import { toastActions } from '@/store/ducks/toast';
+import storage from '@/utils/storage';
+import { setAuthHeader, deleteAuthHeader } from '@/services/api/axios';
 
 import user from '.';
 
 export const logout = (): ThunkA => async dispatch => {
-	await auth.signOut();
 	dispatch(user.actions.logoutAction());
-	dispatch(app.actions.clearAlerts());
+	deleteAuthHeader();
 };
 
 export const getCurrentUser = (): ThunkA => async dispatch => {
 	try {
 		dispatch(user.actions.loginStartAction());
-		const data = auth.currentUser;
-		if (data) {
-			dispatch(user.actions.loginSuccessAction(data as any));
-		} else {
-			dispatch(logout());
-		}
+		const access_token: string = storage('access_token').get();
+		const refresh_token: string = storage('refresh_token').get();
+		const data = await Api.user.currentUser(access_token);
+		await setAuthHeader({ access_token, refresh_token });
+		dispatch(user.actions.loginSuccessAction(data));
 	} catch (e) {
 		dispatch(logout());
 	}
 };
 
-export const login = (p: ILoginParams): ThunkA => async () => {
+export const login = (p: ILoginParams): ThunkA => async dispatch => {
 	try {
-		await auth.signInWithEmailAndPassword(p.username, p.password);
-		return Promise.resolve();
+		const res = await Api.user.login(p);
+		await setAuthHeader(res);
+		dispatch(getCurrentUser());
+		return Promise.resolve(res);
 	} catch (e) {
 		return Promise.reject(e);
 	}
@@ -38,8 +39,8 @@ export const login = (p: ILoginParams): ThunkA => async () => {
 
 export const register = (p: IRegisterParams): ThunkA => async () => {
 	try {
-		await auth.createUserWithEmailAndPassword(p.username, p.password);
-		return Promise.resolve();
+		const res = await Api.user.register(p);
+		return Promise.resolve(res);
 	} catch (e) {
 		return Promise.reject(e);
 	}
@@ -49,7 +50,7 @@ export const recoverPassword = (params: IRecoverPasswordParams): ThunkA => async
 	try {
 		await Api.user.recoverPassword(params);
 		dispatch(appActions.routerPush('/login'));
-		dispatch(toastActions.success('You can now login with the new password', { timeout: 10000 }));
+		dispatch(toastActions.success('You can now login with the new password'));
 		return Promise.resolve();
 	} catch (e) {
 		return Promise.reject(e);

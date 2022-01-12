@@ -12,15 +12,12 @@
 		"build:test": "cross-env NODE_ENV=production && rimraf ./dist && npm run build:web:test && npm run build:server",
 		"build": "cross-env NODE_ENV=production && rimraf ./dist && npm run build:web && npm run build:server",
 		"clean": "rimraf ./dist",
-		"lint": "npm run lint:ts && npm run lint:scss",
+		"lint": "npm run lint:ts",
 		"lint:ts": "eslint src/**/*.{ts,tsx}",
 		"lint:scss": "stylelint './src/**/*.scss' --config .stylelintrc",
 		"format": "prettier --write src/**/*.{ts,tsx}",
 		"test": "jest",
-		"test:update": "npm test -- -u",
-		"ncu": "ncu",
-		"ncu:u": "ncu -u",
-		"pm2": "pm2 serve ./dist 8080 --spa"
+		"test:update": "npm test -- -u"
 	},
 	"dependencies": {
 		"@loadable/component": "^5.12.0",
@@ -29,7 +26,6 @@
 		"connected-react-router": "6.8.0",
 		"date-fns": "^2.11.1",
 		"dayjs": "^1.8.23",
-		"firebase": "^8.6.4",
 		"fp-ts": "^2.5.3",
 		"history": "4.10.1",
 		"i18next": "^19.3.4",
