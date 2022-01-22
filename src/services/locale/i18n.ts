@@ -24,4 +24,6 @@ i18n
 		nsSeparator: false
 	});
 
+export const tr = i18n.t.bind(i18n);
+
 export default i18n;

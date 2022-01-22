@@ -2,7 +2,7 @@ import { replace } from 'connected-react-router';
 
 import { ThunkA } from '@/types';
 import storage from '@/utils/storage';
-import { randomInt } from '@/utils/helpers';
+import { randomInt } from '@/utils/number';
 import { IThemeMode } from '@/styled/themes';
 
 import app from '.';

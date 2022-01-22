@@ -1,5 +1,5 @@
 import { ThunkA } from '@/types';
-import { randomInt } from '@/utils/helpers';
+import { randomInt } from '@/utils/number';
 
 import toast, { toastSelectors } from '.';
 import { IToast, IPartialToast } from './toast.types';

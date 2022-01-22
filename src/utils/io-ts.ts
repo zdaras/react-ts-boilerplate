@@ -1,20 +1,28 @@
-import * as tPromise from 'io-ts-promise';
+import * as T from 'io-ts';
+import * as E from 'fp-ts/Either';
+import { failure } from 'io-ts/PathReporter';
+import { pipe } from 'fp-ts/lib/function';
 
-export const decode = async <T>(type: any, data: any, defaultDecode = true) => {
-	try {
-		if (process.env.NODE_ENV === 'production' || !defaultDecode) {
-			const resolve: T = await Promise.resolve(data);
-			return resolve;
-		}
+const decodeWith = <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
+	codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
+) => (data: DecodeFrom): ApplicationType =>
+	pipe(
+		codec.decode(data),
+		E.getOrElseW(errors => {
+			console.error(failure(errors).join('\n'));
+			return data as any;
+			// throw new Error(failure(errors).join('\n'));
+		})
+	);
 
-		const decoded: T = await tPromise.decode(type, data);
-		return decoded;
-	} catch (error) {
-		if (tPromise.isDecodeError(error)) {
-			console.error('Api type checking error:  ', error);
-		} else {
-			console.error('Server error: ', error);
-		}
-		return Promise.reject(error);
+export const decode = <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
+	c: T.Type<ApplicationType, EncodeTo, DecodeFrom>,
+	defaultDecode = true
+) => (response: any): T.TypeOf<typeof c> => {
+	if (process.env.NODE_ENV === 'production' || !defaultDecode) {
+		const resolve: T.TypeOf<typeof c> = response.data;
+		return resolve;
 	}
+
+	return decodeWith(c)(response.data);
 };
