@@ -29,7 +29,7 @@ export const Copy: FC<IProps> = ({ text, icon, children, onClick }) => {
 
 	return (
 		<CopyContainer onClick={handleCopy}>
-			{icon ? <CopyIcon /> : <>{children}</>}
+			{icon ? <CopyIcon /> : children}
 			<CopyText copied={copied}>{t('Copied')}</CopyText>
 		</CopyContainer>
 	);

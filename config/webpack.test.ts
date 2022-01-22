@@ -69,7 +69,7 @@ const config: WebpackConfiguration = {
 		}),
 		new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
 		new CopyWebpackPlugin({ patterns: [{ from: 'src/assets/', to: 'assets/', globOptions: { ignore: ['*.scss'] } }] }),
-		new MiniCssExtractPlugin({ filename: '[name].[hash].css', chunkFilename: '[id].[hash].css' }),
+		new MiniCssExtractPlugin({ filename: '[name].[chunkhash].css', chunkFilename: '[id].[chunkhash].css' }),
 		new BrotliPlugin({
 			asset: '[path].br[query]',
 			test: /\.(js|css|html|svg)$/,

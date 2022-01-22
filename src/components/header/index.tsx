@@ -12,6 +12,12 @@ import useActions from '@/hooks/useActions';
 
 import { HeaderStyled, HeaderLeftMenu, UserIconStyled } from './header-styled';
 
+const UserIcon = () => (
+	<UserIconStyled>
+		<img src="https://freesvg.org/img/abstract-user-flat-1.png" alt="user" width="50px" />
+	</UserIconStyled>
+);
+
 export const Header: FC = () => {
 	const { t, i18n } = useTranslation();
 	const theme = useSelector(appSelectors.theme);
@@ -43,16 +49,7 @@ export const Header: FC = () => {
 				</Button>
 			</HeaderLeftMenu>
 			{isLoggedIn ? (
-				<Select
-					Trigger={() => (
-						<UserIconStyled>
-							<img src="https://freesvg.org/img/abstract-user-flat-1.png" alt="user" width="50px" />
-						</UserIconStyled>
-					)}
-					padding="0"
-					dropdownType="dropdown"
-					borderless
-				>
+				<Select Trigger={UserIcon} padding="0" dropdownType="dropdown" borderless>
 					<SelectItem active onClick={logout}>
 						<span style={{ display: 'flex', alignItems: 'center' }}>
 							<span style={{ marginRight: '12px' }}>{t('Logout')}</span>
@@ -62,7 +59,7 @@ export const Header: FC = () => {
 				</Select>
 			) : (
 				<Link to="/login">
-					<Button inline buttonType="text" text="Login"></Button>
+					<Button inline buttonType="text" text="Login" />
 				</Link>
 			)}
 		</HeaderStyled>

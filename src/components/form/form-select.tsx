@@ -45,6 +45,6 @@ export interface IProps extends Partial<ISelectProps> {
 
 FormSelect.defaultProps = {
 	showErrorText: false
-};
+} as IProps;
 
 export default FormSelect;

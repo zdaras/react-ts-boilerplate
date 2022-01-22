@@ -1,4 +1,4 @@
-import React, { createContext, FC, useEffect, useState } from 'react';
+import React, { createContext, FC, useEffect, useState, useMemo } from 'react';
 
 export const ViewportContext = createContext({
 	width: 0,
@@ -20,14 +20,12 @@ export const ViewportProvider: FC = ({ children }) => {
 		setHeight(window.innerHeight);
 	};
 
+	const context = useMemo(() => ({ width, height, isMobile, isSmallLaptop, isLaptop }), [width, height]);
+
 	useEffect(() => {
 		window.addEventListener('resize', handleWindowResize);
 		return () => window.removeEventListener('resize', handleWindowResize);
 	}, []);
 
-	return (
-		<ViewportContext.Provider value={{ width, height, isMobile, isSmallLaptop, isLaptop }}>
-			{children}
-		</ViewportContext.Provider>
-	);
+	return <ViewportContext.Provider value={context}>{children}</ViewportContext.Provider>;
 };

@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
+
 import { Link } from '@/components/library/link';
+
 import { TD } from './table-styled';
 
 export const Cell: FC<IProps> = ({ align, width, children, to, secondary, onClick, justify = 'flex-start' }) => {
@@ -10,7 +12,7 @@ export const Cell: FC<IProps> = ({ align, width, children, to, secondary, onClic
 					{children}
 				</Link>
 			) : (
-				<>{children}</>
+				children
 			)}
 		</TD>
 	);

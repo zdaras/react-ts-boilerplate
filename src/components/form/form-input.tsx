@@ -56,6 +56,6 @@ export interface IProps extends IInputProps {
 
 FormInput.defaultProps = {
 	showErrorText: false
-};
+} as IProps;
 
 export default memo(FormInput);

@@ -9,6 +9,7 @@ export const tsConfig: webpack.RuleSetRule = {
 		{
 			loader: 'ts-loader',
 			options: {
+				transpileOnly: true,
 				configFile: 'tsconfig.json'
 			}
 		}

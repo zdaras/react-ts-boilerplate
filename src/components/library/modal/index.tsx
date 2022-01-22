@@ -37,31 +37,29 @@ const Modal: FC<IProps> = ({
 
 	if (isOpen) {
 		return ReactDOM.createPortal(
-			<>
-				<ModalBackgroundStyled isOpen={isOpen} onClick={handleClose} fadeType={fadeType}>
-					<ModalBody
-						width={width}
-						height={height}
-						size={size}
-						overflow={overflow}
-						onClick={e => e.stopPropagation()}
-						fadeType={fadeType}
-						minWidth={minWidth}
-					>
-						<ModalTopPanel hidden={!title && !closeIcon} centerTitle={centerTitle}>
-							<ModalTitle>
-								<H2>{title}</H2>
-							</ModalTitle>
-							{closeIcon && (
-								<Close onClick={handleClose}>
-									<CloseIcon className="custom" />
-								</Close>
-							)}
-						</ModalTopPanel>
-						{children}
-					</ModalBody>
-				</ModalBackgroundStyled>
-			</>,
+			<ModalBackgroundStyled isOpen={isOpen} onClick={handleClose} fadeType={fadeType}>
+				<ModalBody
+					width={width}
+					height={height}
+					size={size}
+					overflow={overflow}
+					onClick={e => e.stopPropagation()}
+					fadeType={fadeType}
+					minWidth={minWidth}
+				>
+					<ModalTopPanel hidden={!title && !closeIcon} centerTitle={centerTitle}>
+						<ModalTitle>
+							<H2>{title}</H2>
+						</ModalTitle>
+						{closeIcon && (
+							<Close onClick={handleClose}>
+								<CloseIcon className="custom" />
+							</Close>
+						)}
+					</ModalTopPanel>
+					{children}
+				</ModalBody>
+			</ModalBackgroundStyled>,
 			document.body
 		);
 	}

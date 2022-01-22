@@ -244,6 +244,13 @@ module.exports = {
 		'jsx-a11y/no-static-element-interactions': 0,
 		'jsx-a11y/click-events-have-key-events': 0,
 		'@typescript-eslint/class-name-casing': 0,
-		'@typescript-eslint/ban-ts-comment': 0
+		'@typescript-eslint/ban-ts-comment': 0,
+		'no-use-before-define': 0,
+		'prefer-regex-literals': 0,
+		'no-promise-executor-return': 0,
+		'default-param-last': 0,
+		'react/require-default-props': 0,
+		'import/no-import-module-exports': 0,
+		'react/function-component-definition': 0
 	}
 };

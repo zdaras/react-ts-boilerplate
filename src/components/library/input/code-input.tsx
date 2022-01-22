@@ -47,6 +47,6 @@ CodeInput.defaultProps = {
 	className: 'two-fa-code',
 	required: true,
 	placeholder: ['•', '•', '•', '•', '•', '•']
-};
+} as IProps;
 
 export default CodeInput;

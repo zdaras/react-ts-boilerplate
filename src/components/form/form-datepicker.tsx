@@ -38,6 +38,6 @@ export interface IProps extends IDatepickerProps {
 
 FormDatepicker.defaultProps = {
 	showErrorText: false
-};
+} as IProps;
 
 export default memo(FormDatepicker);

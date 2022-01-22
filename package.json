@@ -6,9 +6,9 @@
 	"main": "./src/index.tsx",
 	"scripts": {
 		"start": "cross-env NODE_ENV=development webpack-dev-server --config './config/webpack.dev.ts'",
-		"build:web": "cross-env NODE_ENV=production && webpack --config './config/webpack.prod.ts'",
-		"build:web:test": "cross-env NODE_ENV=production && webpack --config './config/webpack.test.ts'",
-		"build:server": "cross-env NODE_ENV=production && webpack --config './config/webpack.server.ts'",
+		"build:web": "cross-env NODE_ENV=production && webpack --config config/webpack.prod.ts",
+		"build:web:test": "cross-env NODE_ENV=production && webpack --config config/webpack.test.ts",
+		"build:server": "cross-env NODE_ENV=production && webpack --config config/webpack.server.ts",
 		"build:test": "cross-env NODE_ENV=production && rimraf ./dist && npm run build:web:test && npm run build:server",
 		"build": "cross-env NODE_ENV=production && rimraf ./dist && npm run build:web && npm run build:server",
 		"clean": "rimraf ./dist",

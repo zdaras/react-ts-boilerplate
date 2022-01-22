@@ -19,4 +19,11 @@ interface IProps extends Pick<IDataGrid, 'onClick'> {
 	actionsHover?: boolean;
 }
 
+Row.defaultProps = {
+	item: {},
+	index: 0,
+	dark: false,
+	actionsHover: false
+};
+
 export default Row;

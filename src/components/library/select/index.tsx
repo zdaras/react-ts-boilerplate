@@ -106,8 +106,6 @@ export class Select extends Component<IProps, IState> {
 		}
 	};
 
-	handleOpen = () => this.setState({ isOpen: true });
-
 	handleClose = () => this.setState({ isOpen: false, input: '', selectedIndex: -2 });
 
 	handleSearch = (e: any) =>
@@ -236,167 +234,165 @@ export class Select extends Component<IProps, IState> {
 			(!selectedOptions.length && searchHeader && !showSecondPlacehodler);
 
 		return (
-			<>
-				<div
-					className="container"
-					ref={this.container}
-					style={{ flex: Trigger ? '0 1 auto' : '1 1 auto', maxWidth: '100%' }}
+			<div
+				className="container"
+				ref={this.container}
+				style={{ flex: Trigger ? '0 1 auto' : '1 1 auto', maxWidth: '100%' }}
+			>
+				<SelectStyled
+					onClick={this.handleToggle}
+					search={search}
+					borderless={borderless}
+					padding={padding}
+					backgroundless={backgroundless}
+					disabled={disabled}
+					inline={inline}
+					isOpen={isOpen}
+					readOnly={readOnly}
+					onKeyDown={this.handleKeyPress}
+					tabIndex={0}
+					loading={loading ? 'true' : undefined}
+					dropdownType={dropdownType}
+					Trigger={Trigger}
+					errorText={errorText}
+					inputType={inputType}
+					{...rest}
 				>
-					<SelectStyled
-						onClick={this.handleToggle}
-						search={search}
-						borderless={borderless}
-						padding={padding}
-						backgroundless={backgroundless}
-						disabled={disabled}
-						inline={inline}
-						isOpen={isOpen}
-						readOnly={readOnly}
-						onKeyDown={this.handleKeyPress}
-						tabIndex={0}
-						loading={loading ? 'true' : undefined}
-						dropdownType={dropdownType}
-						Trigger={Trigger}
-						errorText={errorText}
-						inputType={inputType}
-						{...rest}
-					>
-						{showFirstPlaceholder && (
-							<SelectPlaceholderStyled
-								value={value}
-								grey
-								isOpen={isOpen}
-								dropdownType={dropdownType}
-								errorText={errorText}
-							>
-								{placeholder}
-							</SelectPlaceholderStyled>
-						)}
+					{showFirstPlaceholder && (
+						<SelectPlaceholderStyled
+							value={value}
+							grey
+							isOpen={isOpen}
+							dropdownType={dropdownType}
+							errorText={errorText}
+						>
+							{placeholder}
+						</SelectPlaceholderStyled>
+					)}
 
-						{showSecondPlacehodler && (
-							<SelectPlaceholderStyled
-								value={value}
-								grey={false}
-								isOpen={isOpen}
-								dropdownType={dropdownType}
-								errorText={errorText}
-							>
-								{placeholder}
-							</SelectPlaceholderStyled>
-						)}
+					{showSecondPlacehodler && (
+						<SelectPlaceholderStyled
+							value={value}
+							grey={false}
+							isOpen={isOpen}
+							dropdownType={dropdownType}
+							errorText={errorText}
+						>
+							{placeholder}
+						</SelectPlaceholderStyled>
+					)}
 
-						{Trigger && (
-							<>
-								<Trigger />
-								{TriggerWithArrow && (
-									<ArrowDownStyled rotate={isOpen ? 1 : 0}>
-										<DropdownArrowIcon />
-									</ArrowDownStyled>
+					{Trigger && (
+						<>
+							<Trigger />
+							{TriggerWithArrow && (
+								<ArrowDownStyled rotate={isOpen ? 1 : 0}>
+									<DropdownArrowIcon />
+								</ArrowDownStyled>
+							)}
+						</>
+					)}
+
+					{selectedOptions.length > 0 && (
+						<SelectedOptionLabels>
+							{selectedOptions.map((o, ind) => {
+								const lastItem = selectedOptions.slice(-1)[0];
+								const hideComma = lastItem?.value === o.value;
+
+								return (
+									<SelectedOption key={`${o.value}${ind}`} multiple={multiple}>
+										{dropdownType === 'currency' && o.logo && (
+											<OptionIcon>
+												<img alt="icon" src={o.logo} />
+											</OptionIcon>
+										)}
+										<SelectedOptionValueStyled dropdownType={dropdownType}>
+											{o.label || o.value}
+											{multiple && hideComma ? '' : ','}
+										</SelectedOptionValueStyled>
+										{dropdownType === 'currency' && secondaryLabel && (
+											<OptionSecondaryLabel>{o.secondaryLabel}</OptionSecondaryLabel>
+										)}
+									</SelectedOption>
+								);
+							})}
+						</SelectedOptionLabels>
+					)}
+
+					{search && dropdownType === 'select' && (
+						<SelectSearchInput onChange={this.handleSearch} value={input} tabIndex={-1} />
+					)}
+
+					{!readOnly && !Trigger && (
+						<ArrowDownStyled rotate={isOpen ? 1 : 0}>
+							<DropdownArrowIcon />
+						</ArrowDownStyled>
+					)}
+
+					{isOpen && (
+						<SelectOptions
+							isOpen={isOpen}
+							id="select-dropdown"
+							bottomIsOutside={bottomIsOutside}
+							optionsHeight={optionsHeight}
+							minWidth={minWidth}
+							maxWidth={maxWidth}
+							dropdownType={dropdownType}
+						>
+							<SelectOptionsContrainer
+								optionsHeight={optionsHeight}
+								overflow={selectOptionsOverflow ? 'true' : 'false'}
+							>
+								{!multiple && !clearable && emptyChooseOption && !Trigger && (
+									<SelectOptionStyled
+										onClick={(e: React.SyntheticEvent) => this.handleOptionClick(e, emptyOption)}
+										active={selectedIndex === -1}
+										dropdownType={dropdownType}
+									>
+										{emptyOption.logo && withIcon && (
+											<OptionIcon>
+												<img alt="icon" src={emptyOption.logo} />
+											</OptionIcon>
+										)}
+										<OptionLabel>{showPlaceholderInEmptyOption ? placeholder : emptyOption.label}</OptionLabel>
+									</SelectOptionStyled>
 								)}
-							</>
-						)}
 
-						{selectedOptions.length > 0 && (
-							<SelectedOptionLabels>
-								{selectedOptions.map((o, ind) => {
-									const lastItem = selectedOptions.slice(-1)[0];
-									const hideComma = lastItem?.value === o.value;
+								{filteredOptions.map((op, index) => {
+									const selected = multiple && selectedOptions.some(i => i.value === op.value);
 
 									return (
-										<SelectedOption key={`${o.value}${ind}`} multiple={multiple}>
-											{dropdownType === 'currency' && o.logo && (
-												<OptionIcon>
-													<img alt="icon" src={o.logo} />
-												</OptionIcon>
-											)}
-											<SelectedOptionValueStyled dropdownType={dropdownType}>
-												{o.label || o.value}
-												{multiple && <>{hideComma ? '' : ','}</>}
-											</SelectedOptionValueStyled>
-											{dropdownType === 'currency' && secondaryLabel && (
-												<OptionSecondaryLabel>{o.secondaryLabel}</OptionSecondaryLabel>
-											)}
-										</SelectedOption>
+										<React.Fragment key={`${op.value}${index}`}>
+											<SelectOptionStyled
+												value={op.value}
+												onClick={(e: React.SyntheticEvent) => this.handleOptionClick(e, op, selected)}
+												active={selectedIndex === index}
+												dropdownType={dropdownType}
+												Trigger={Trigger}
+												withSubLabel={withSubLabel}
+											>
+												{op.logo && withIcon && (
+													<OptionIcon>
+														<img alt="icon" src={op.logo} />
+													</OptionIcon>
+												)}
+												<OptionLabel>{op.label || op.value}</OptionLabel>
+												{secondaryLabel && !op.walletWithoutBalance && (
+													<OptionSecondaryLabel>{op.secondaryLabel}</OptionSecondaryLabel>
+												)}
+												{withSubLabel && <OptionSubLabel>{op.subLabel}</OptionSubLabel>}
+												{selected && <img src="/assets/icons/checkmark-blue.svg" alt="checked" />}
+											</SelectOptionStyled>
+										</React.Fragment>
 									);
 								})}
-							</SelectedOptionLabels>
-						)}
 
-						{search && dropdownType === 'select' && (
-							<SelectSearchInput onChange={this.handleSearch} value={input} tabIndex={-1} />
-						)}
-
-						{!readOnly && !Trigger && (
-							<ArrowDownStyled rotate={isOpen ? 1 : 0}>
-								<DropdownArrowIcon />
-							</ArrowDownStyled>
-						)}
-
-						{isOpen && (
-							<SelectOptions
-								isOpen={isOpen}
-								id="select-dropdown"
-								bottomIsOutside={bottomIsOutside}
-								optionsHeight={optionsHeight}
-								minWidth={minWidth}
-								maxWidth={maxWidth}
-								dropdownType={dropdownType}
-							>
-								<SelectOptionsContrainer
-									optionsHeight={optionsHeight}
-									overflow={selectOptionsOverflow ? 'true' : 'false'}
-								>
-									{!multiple && !clearable && emptyChooseOption && !Trigger && (
-										<SelectOptionStyled
-											onClick={(e: React.SyntheticEvent) => this.handleOptionClick(e, emptyOption)}
-											active={selectedIndex === -1}
-											dropdownType={dropdownType}
-										>
-											{emptyOption.logo && withIcon && (
-												<OptionIcon>
-													<img alt="icon" src={emptyOption.logo} />
-												</OptionIcon>
-											)}
-											<OptionLabel>{showPlaceholderInEmptyOption ? placeholder : emptyOption.label}</OptionLabel>
-										</SelectOptionStyled>
-									)}
-
-									{filteredOptions.map((op, index) => {
-										const selected = multiple && selectedOptions.some(i => i.value === op.value);
-
-										return (
-											<React.Fragment key={`${op.value}${index}`}>
-												<SelectOptionStyled
-													value={op.value}
-													onClick={(e: React.SyntheticEvent) => this.handleOptionClick(e, op, selected)}
-													active={selectedIndex === index}
-													dropdownType={dropdownType}
-													Trigger={Trigger}
-													withSubLabel={withSubLabel}
-												>
-													{op.logo && withIcon && (
-														<OptionIcon>
-															<img alt="icon" src={op.logo} />
-														</OptionIcon>
-													)}
-													<OptionLabel>{op.label || op.value}</OptionLabel>
-													{secondaryLabel && !op.walletWithoutBalance && (
-														<OptionSecondaryLabel>{op.secondaryLabel}</OptionSecondaryLabel>
-													)}
-													{withSubLabel && <OptionSubLabel>{op.subLabel}</OptionSubLabel>}
-													{selected && <img src="/assets/icons/checkmark-blue.svg" alt="checked" />}
-												</SelectOptionStyled>
-											</React.Fragment>
-										);
-									})}
-
-									{children}
-								</SelectOptionsContrainer>
-							</SelectOptions>
-						)}
-					</SelectStyled>
-				</div>
-			</>
+								{children}
+							</SelectOptionsContrainer>
+						</SelectOptions>
+					)}
+				</SelectStyled>
+			</div>
 		);
 	}
 }

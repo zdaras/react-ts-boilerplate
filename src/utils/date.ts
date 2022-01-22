@@ -8,7 +8,7 @@ export const defaultDateFormat = 'DD MMM, YYYY';
 export const defaultDatetimeFormat = 'DD MMM, YYYY HH:mm';
 
 export const convertIsoDateOffset = (date: IDate) => {
-	const [splitDate, offset] = String(date)?.split('+');
+	const [splitDate, offset] = String(date).split('+');
 
 	if (!offset) return `${date}+00:00`;
 
