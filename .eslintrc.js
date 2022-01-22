@@ -20,9 +20,7 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
-		'prettier',
-		'prettier/@typescript-eslint',
-		'prettier/react'
+		'prettier'
 	],
 	settings: {
 		'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
@@ -244,6 +242,8 @@ module.exports = {
 			}
 		],
 		'jsx-a11y/no-static-element-interactions': 0,
-		'jsx-a11y/click-events-have-key-events': 0
+		'jsx-a11y/click-events-have-key-events': 0,
+		'@typescript-eslint/class-name-casing': 0,
+		'@typescript-eslint/ban-ts-comment': 0
 	}
 };

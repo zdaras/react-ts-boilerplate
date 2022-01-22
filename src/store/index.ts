@@ -1,18 +1,15 @@
-import { routerMiddleware } from 'connected-react-router';
 import { History, createBrowserHistory } from 'history';
-import { Store, Middleware, configureStore as createStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { Store, configureStore as createStore } from '@reduxjs/toolkit';
 
 import rootReducer, { IRootStore } from './ducks/root-reducer';
 
 export const history: History = createBrowserHistory();
-const historyMiddleware: Middleware = routerMiddleware(history);
-const middlewares = [...getDefaultMiddleware({ serializableCheck: false }), historyMiddleware];
 
 export const configureStore = (preloadedState: object = {}): Store<IRootStore> => {
 	const store: Store<IRootStore> = createStore({
-		reducer: rootReducer(history),
+		reducer: rootReducer(),
 		preloadedState,
-		middleware: middlewares,
+		middleware: getDefaultMiddleware => [...getDefaultMiddleware({ serializableCheck: false })],
 		devTools: process.env.NODE_ENV === 'development'
 	});
 

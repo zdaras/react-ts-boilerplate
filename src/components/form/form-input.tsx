@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 
 import Input, { IProps as IInputProps } from '@/components/library/input';
 import { IValidation, IRegExp } from '@/types/form';
@@ -18,18 +18,20 @@ export const FormInput: FC<IProps> = ({
 	listError,
 	...props
 }) => {
-	const { register, errors } = useFormContext();
-	let errorText: string | undefined = errors?.[name]?.message;
-	if (listError) errorText = errors[listError.name]?.[listError.index]?.[listError.fieldName]?.message;
+	const { formState, control } = useFormContext();
+	let errorText: string | undefined = formState.errors?.[name]?.message;
+	if (listError) errorText = formState.errors[listError.name]?.[listError.index]?.[listError.fieldName]?.message;
 
 	return (
 		<FormInputWrapper margin={margin} padding={padding} showErrorText={showErrorText}>
-			<Input
-				disabled={disabled}
+			<Controller
+				render={({ field }) => {
+					return <Input disabled={disabled} errorText={errorText} {...props} {...field} ref={null} />;
+				}}
 				name={name}
-				register={register({ validate, pattern })}
-				errorText={errorText}
-				{...props}
+				control={control}
+				rules={{ validate, pattern }}
+				defaultValue=""
 			/>
 
 			{showErrorText && <ErrorText inForm text={errorText} show={showErrorText} />}

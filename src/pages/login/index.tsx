@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { FormInput, ErrorText } from '@/components/form';
 import { Link } from '@components/library/link';
@@ -34,7 +34,7 @@ export const Login = () => {
 		<>
 			<Helmet title={t('Log In')} />
 
-			<FormContext {...methods}>
+			<FormProvider {...methods}>
 				<Flex center height="100%">
 					<FlexItem flex="0 1 600px">
 						<form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -68,7 +68,7 @@ export const Login = () => {
 						</form>
 					</FlexItem>
 				</Flex>
-			</FormContext>
+			</FormProvider>
 		</>
 	);
 };

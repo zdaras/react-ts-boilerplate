@@ -8,18 +8,18 @@ import { FormInputWrapper } from './form-styled';
 import ErrorText from './error';
 
 export const FormDatepicker: FC<IProps> = ({ name, margin, padding, validate, showErrorText, ...props }) => {
-	const { errors, control } = useFormContext();
-	const errorText: string | undefined = errors && errors[name]?.message;
+	const { formState, control } = useFormContext();
+	const errorText: string | undefined = formState.errors && formState.errors[name]?.message;
 
 	return (
 		<FormInputWrapper margin={margin} padding={padding}>
 			<Controller
-				as={<Datepicker name={name} errorText={errorText} {...props} />}
+				render={() => <Datepicker name={name} errorText={errorText} {...props} />}
 				name={name}
 				control={control}
 				rules={{ validate }}
-				mode="onChange"
-				type="input"
+				// mode="onChange"
+				// type="input"
 			/>
 
 			{showErrorText && <ErrorText inForm text={errorText} show={showErrorText} />}

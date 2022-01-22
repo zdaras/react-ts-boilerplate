@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 
 import Select, { SelectItem } from '@/components/library/select';
 import Button from '@/components/library/button';
+import { Link } from '@/components/library/link';
 import { LogoutIcon } from '@/components/icons';
 import { appSelectors, appActions } from '@/store/ducks/app';
-import { userActions } from '@/store/ducks/user';
+import { userActions, userSelectors } from '@/store/ducks/user';
 import useActions from '@/hooks/useActions';
 
 import { HeaderStyled, HeaderLeftMenu, UserIconStyled } from './header-styled';
@@ -14,6 +15,7 @@ import { HeaderStyled, HeaderLeftMenu, UserIconStyled } from './header-styled';
 export const Header: FC = () => {
 	const { t, i18n } = useTranslation();
 	const theme = useSelector(appSelectors.theme);
+	const isLoggedIn = useSelector(userSelectors.isLoggedIn);
 	const themeSwitch = useActions(appActions.themeSwitchAction);
 	const logout = useActions(userActions.logout);
 
@@ -40,23 +42,29 @@ export const Header: FC = () => {
 					KA
 				</Button>
 			</HeaderLeftMenu>
-			<Select
-				Trigger={() => (
-					<UserIconStyled>
-						<img src="https://freesvg.org/img/abstract-user-flat-1.png" alt="user" width="50px" />
-					</UserIconStyled>
-				)}
-				padding="0"
-				dropdownType="dropdown"
-				borderless
-			>
-				<SelectItem active onClick={logout}>
-					<span style={{ display: 'flex', alignItems: 'center' }}>
-						<span style={{ marginRight: '12px' }}>{t('Logout')}</span>
-						<LogoutIcon />
-					</span>
-				</SelectItem>
-			</Select>
+			{isLoggedIn ? (
+				<Select
+					Trigger={() => (
+						<UserIconStyled>
+							<img src="https://freesvg.org/img/abstract-user-flat-1.png" alt="user" width="50px" />
+						</UserIconStyled>
+					)}
+					padding="0"
+					dropdownType="dropdown"
+					borderless
+				>
+					<SelectItem active onClick={logout}>
+						<span style={{ display: 'flex', alignItems: 'center' }}>
+							<span style={{ marginRight: '12px' }}>{t('Logout')}</span>
+							<LogoutIcon />
+						</span>
+					</SelectItem>
+				</Select>
+			) : (
+				<Link to="/login">
+					<Button inline buttonType="text" text="Login"></Button>
+				</Link>
+			)}
 		</HeaderStyled>
 	);
 };

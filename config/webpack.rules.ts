@@ -3,11 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { PATHS } from './paths';
 
-interface IHotLoader extends webpack.NewLoader {
-	hot: boolean;
-}
-
-export const tsConfig: webpack.Rule = {
+export const tsConfig: webpack.RuleSetRule = {
 	test: /\.tsx?$/,
 	use: [
 		{
@@ -21,7 +17,7 @@ export const tsConfig: webpack.Rule = {
 	include: PATHS.src
 };
 
-export const tsConfigDev: webpack.Rule = {
+export const tsConfigDev: webpack.RuleSetRule = {
 	test: /\.tsx?$/,
 	use: [
 		'react-hot-loader/webpack',
@@ -36,7 +32,7 @@ export const tsConfigDev: webpack.Rule = {
 	include: PATHS.src
 };
 
-export const htmlConfig: webpack.Rule = {
+export const htmlConfig: webpack.RuleSetRule = {
 	test: /\.html$/,
 	use: [
 		{
@@ -56,39 +52,39 @@ export const postcssPlugins: string[] = [
 	require('autoprefixer')()
 ];
 
-export const cssConfig: webpack.Rule = {
+export const cssConfig: webpack.RuleSetRule = {
 	test: /(\.css|\.scss)$/,
 	use: [
 		'css-hot-loader',
 		MiniCssExtractPlugin.loader,
 		'css-loader',
-		{
-			loader: 'postcss-loader',
-			options: {
-				plugins: (loader: IHotLoader): string[] => {
-					return loader.hot
-						? postcssPlugins
-						: [...postcssPlugins, require('cssnano')({ discardComments: { removeAll: true } })];
-				}
-			}
-		},
+		// {
+		// 	loader: 'postcss-loader',
+		// 	options: {
+		// 		plugins: (loader: any): string[] => {
+		// 			return loader.hot
+		// 				? postcssPlugins
+		// 				: [...postcssPlugins, require('cssnano')({ discardComments: { removeAll: true } })];
+		// 		}
+		// 	}
+		// },
 		'sass-loader'
 	]
 };
 
-export const fontsConfig: webpack.Rule = {
+export const fontsConfig: webpack.RuleSetRule = {
 	test: /\.(eot|otf|ttf|woff|woff2)$/,
 	use: 'file-loader'
 };
 
-export const svgConfig: webpack.Rule = {
+export const svgConfig: webpack.RuleSetRule = {
 	test: /\.svg$/,
 	issuer: /\.tsx?$/,
 	exclude: /node_modules/,
 	loader: 'svg-inline-loader'
 };
 
-export const svgCSSConfig: webpack.Rule = {
+export const svgCSSConfig: webpack.RuleSetRule = {
 	test: /\.svg$/,
 	issuer: /\.s?css?$/,
 	use: [
@@ -101,7 +97,7 @@ export const svgCSSConfig: webpack.Rule = {
 	]
 };
 
-export const imagesConfig: webpack.Rule = {
+export const imagesConfig: webpack.RuleSetRule = {
 	test: /\.(jpg|png|gif|ico)$/,
 	use: [
 		{
@@ -132,7 +128,7 @@ export const imagesConfig: webpack.Rule = {
 	]
 };
 
-export const mediaConfig: webpack.Rule = {
+export const mediaConfig: webpack.RuleSetRule = {
 	test: /\.(mp3|mp4|webm)$/,
 	use: {
 		loader: 'url-loader',

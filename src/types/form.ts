@@ -1,8 +1,6 @@
+import { ValidateResult, MultipleFieldErrors } from 'react-hook-form';
+
 export type Ref = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLDivElement | any;
-
-export type ValidateResult = string | boolean | undefined;
-
-export type MultipleFieldErrors = Record<string, ValidateResult>;
 
 export interface IFieldError {
 	type: string;

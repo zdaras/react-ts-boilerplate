@@ -1,5 +1,4 @@
-import { replace } from 'connected-react-router';
-
+import { history } from '@/store';
 import { ThunkA } from '@/types';
 import storage from '@/utils/storage';
 import { randomInt } from '@/utils/number';
@@ -14,7 +13,7 @@ export const themeSwitchAction = (theme: IThemeMode): ThunkA => async dispatch =
 };
 
 export const routerPush = (path: string, state?: any): ThunkA => async dispatch => {
-	dispatch(replace(path, state));
+	history.push(path, state);
 };
 
 const defaultOptions = (): ITopAlert => ({

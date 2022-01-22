@@ -58,7 +58,7 @@ const config: IConfiguration = {
 			inject: true
 		}),
 		new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('development') } }),
-		new CopyWebpackPlugin([{ from: 'src/assets/', to: 'assets/', ignore: ['*.scss'] }]),
+		new CopyWebpackPlugin({ patterns: [{ from: 'src/assets/', to: 'assets/', globOptions: { ignore: ['*.scss'] } }] }),
 		new MiniCssExtractPlugin({ filename: '[name].css', chunkFilename: '[id].css' }),
 		new webpack.HotModuleReplacementPlugin()
 	],
@@ -68,12 +68,9 @@ const config: IConfiguration = {
 	devServer: {
 		open: true,
 		port: 8080,
-		hot: true,
-		noInfo: true,
-		clientLogLevel: 'error',
-		stats: 'none',
 		historyApiFallback: true,
-		contentBase: [path.join(__dirname, 'dist'), path.join(__dirname, 'src')]
+		client: { overlay: false, logging: 'error' },
+		static: [path.join(__dirname, '../dist'), path.join(__dirname, '../src')]
 	},
 	stats: 'errors-only',
 	performance: { hints: 'warning' },

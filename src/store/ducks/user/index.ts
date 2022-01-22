@@ -79,6 +79,10 @@ const slice = createSlice({
 
 // selectors
 export const userSelectors = {
+	isLoggedIn: createSelector(
+		(state: IRootStore) => state.user,
+		user => user.isLoggedIn
+	),
 	userInfo: createSelector(
 		(state: IRootStore) => state.user,
 		user => user.userInfo

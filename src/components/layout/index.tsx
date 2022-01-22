@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Route } from 'react-router-dom';
 
 import Container from '@/components/library/container';
 import Header from '@/components/header';
@@ -16,20 +14,3 @@ export const MainLayout: FC = ({ children }) => (
 		<WrapperStyled>{children}</WrapperStyled>
 	</Container>
 );
-
-export const AppRoute = ({ Component, Layout, ...rest }: IAppRoute) => (
-	<Route
-		{...rest}
-		render={props => (
-			<Layout>
-				<Component {...props} />
-			</Layout>
-		)}
-	/>
-);
-
-interface IAppRoute {
-	Component: FC<RouteComponentProps>;
-	Layout: FC;
-	[key: string]: any;
-}

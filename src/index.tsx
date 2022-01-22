@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from '@/router/app';
 import { configureStore, history } from '@/store';
@@ -23,9 +23,9 @@ if (accessToken) store.dispatch<any>(userActions.getCurrentUser());
 const renderApp = (AppComponent: any) =>
 	render(
 		<Provider store={store}>
-			<ConnectedRouter history={history}>
+			<BrowserRouter>
 				<AppComponent />
-			</ConnectedRouter>
+			</BrowserRouter>
 		</Provider>,
 		document.getElementById('app')
 	);

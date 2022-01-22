@@ -16,7 +16,7 @@ export const Dashboard = () => {
 		<>
 			<Helmet title={t('Dashboard')} />
 
-			<Flex full center direction="column">
+			<Flex center height="80%" direction="column">
 				<H4>{t('BTC-USD')}</H4>
 				<H4 padding="30px 0">$ {numberToFixed(ticker.price, 2)}</H4>
 			</Flex>

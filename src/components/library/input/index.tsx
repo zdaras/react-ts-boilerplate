@@ -19,7 +19,6 @@ export const Input: FC<IProps> = ({
 	placeholder,
 	autoFocus,
 	name,
-	register,
 	showPassword,
 	errorText,
 	AbsoluteComp,
@@ -34,7 +33,8 @@ export const Input: FC<IProps> = ({
 	setValue,
 	uncheck,
 	autoComplete,
-	success
+	success,
+	ref
 }) => {
 	const [typeState, setTypeState] = useState<IType>(type);
 	const toggleShowPassword = () => {
@@ -58,7 +58,7 @@ export const Input: FC<IProps> = ({
 				autoFocus={autoFocus}
 				name={name}
 				id={id || name}
-				ref={register}
+				ref={ref}
 				errorText={errorText}
 				onClick={onClick}
 				disabled={disabled}
@@ -111,7 +111,6 @@ export interface IProps {
 	placeholder?: string;
 	autoFocus?: boolean;
 	name?: string;
-	register?: any;
 	showPassword?: boolean;
 	errorText?: string;
 	switcher?: boolean;
@@ -127,6 +126,7 @@ export interface IProps {
 	uncheck?: boolean;
 	autoComplete?: string;
 	success?: boolean;
+	ref?: any;
 }
 
 Input.defaultProps = {

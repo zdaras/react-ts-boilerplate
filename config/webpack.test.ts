@@ -68,7 +68,7 @@ const config: WebpackConfiguration = {
 			}
 		}),
 		new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
-		new CopyWebpackPlugin([{ from: 'src/assets/', to: 'assets/', ignore: ['*.scss'] }]),
+		new CopyWebpackPlugin({ patterns: [{ from: 'src/assets/', to: 'assets/', globOptions: { ignore: ['*.scss'] } }] }),
 		new MiniCssExtractPlugin({ filename: '[name].[hash].css', chunkFilename: '[id].[hash].css' }),
 		new BrotliPlugin({
 			asset: '[path].br[query]',
@@ -88,7 +88,6 @@ const config: WebpackConfiguration = {
 		minimizer: [
 			new TerserPlugin({
 				terserOptions: {
-					warnings: false,
 					compress: {
 						comparisons: false
 					},
@@ -98,9 +97,7 @@ const config: WebpackConfiguration = {
 						ascii_only: true
 					}
 				},
-				parallel: true,
-				cache: true,
-				sourceMap: true
+				parallel: true
 			})
 		],
 		nodeEnv: 'production',
@@ -112,7 +109,6 @@ const config: WebpackConfiguration = {
 			minChunks: 1,
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
-			name: true,
 			cacheGroups: {
 				commons: {
 					test: /[\\/]node_modules[\\/]/,

@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Switch } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 
 import { themes } from '@/styled/themes';
@@ -9,7 +9,7 @@ import { GlobalStyle } from '@/styled/global';
 import ToastContainer from '@/components/toast';
 import TopAlert from '@/components/top-alert';
 import { appSelectors } from '@/store/ducks/app';
-import { AppRoute, MainLayout } from '@/components/layout';
+import { MainLayout } from '@/components/layout';
 
 import { routes, AsyncPage } from './routes';
 
@@ -23,12 +23,27 @@ const App = () => {
 				<TopAlert />
 				<ToastContainer />
 				<GlobalStyle />
-				<Switch>
+				<Routes>
 					{routes.map(r => (
-						<AppRoute key={r.path} path={r.path} exact={r.exact} Component={r.component} Layout={r.Layout} />
+						<Route
+							key={r.path}
+							path={r.path}
+							element={
+								<r.Layout>
+									<r.Component />
+								</r.Layout>
+							}
+						/>
 					))}
-					<AppRoute Component={() => <AsyncPage page="not-found" />} Layout={MainLayout} />
-				</Switch>
+					<Route
+						path="*"
+						element={
+							<MainLayout>
+								<AsyncPage page="not-found" />
+							</MainLayout>
+						}
+					/>
+				</Routes>
 			</>
 		</ThemeProvider>
 	);

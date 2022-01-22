@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteProps } from 'react-router';
 import loadable from '@loadable/component';
 
 import { userIsNotAuthenticatedRedir } from '@/components/hoc/auth';
@@ -15,38 +15,33 @@ export const AsyncPage: any = loadable(
 export const routes: IRoute[] = [
 	{
 		path: '/login',
-		exact: false,
 		showInMenu: false,
-		component: userIsNotAuthenticatedRedir(Login),
+		Component: userIsNotAuthenticatedRedir(Login),
 		Layout: BlankLayout
 	},
 	{
 		path: '/register',
-		exact: false,
 		showInMenu: false,
-		component: userIsNotAuthenticatedRedir(Register),
+		Component: userIsNotAuthenticatedRedir(Register),
 		Layout: BlankLayout
 	},
 	{
 		path: '/forgot-password',
-		exact: false,
 		showInMenu: false,
-		component: (props: RouteComponentProps) => <AsyncPage page="forgot-password" {...props} />,
+		Component: (props: RouteProps) => <AsyncPage page="forgot-password" {...props} />,
 		Layout: BlankLayout
 	},
 	{
 		path: '/password-recovery',
-		exact: false,
 		showInMenu: false,
-		component: (props: RouteComponentProps) => <AsyncPage page="password-recovery" {...props} />,
+		Component: (props: RouteProps) => <AsyncPage page="password-recovery" {...props} />,
 		Layout: BlankLayout
 	},
 	{
 		path: '/',
 		name: 'Dashboard',
-		exact: false,
 		showInMenu: true,
-		component: Dashboard,
+		Component: Dashboard,
 		Layout: MainLayout
 	}
 ];
@@ -60,10 +55,9 @@ interface IAsyncPageProps {
 }
 
 export interface IRoute {
-	path?: string;
+	path: string;
 	name?: string;
-	exact?: boolean;
 	showInMenu: boolean;
-	component: any;
+	Component: any;
 	Layout: FC;
 }

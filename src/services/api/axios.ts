@@ -65,13 +65,14 @@ instance.interceptors.response.use(
 			const refreshToken = storage('refresh_token').get();
 			// @ts-ignore
 			if (!['undefined', 'null'].includes(String(refreshToken)) && !originalRequest._retry) {
-				delete originalRequest.headers[authToken];
+				delete originalRequest.headers?.[authToken];
 				try {
 					const res = await getAuthToken(refreshToken);
 					if ([200, 201].includes(res.status)) {
 						await setAuthHeader(res.data);
 						// @ts-ignore
 						originalRequest._retry = true;
+						// @ts-ignore
 						originalRequest.headers[authToken] = `Bearer ${res.data.access_token}`;
 						return instance(originalRequest);
 					}

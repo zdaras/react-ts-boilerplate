@@ -184,7 +184,7 @@ export const ButtonStyled = styled.button<IProps>`
 			case 'text':
 				return css`
 					 {
-						height: ${(props: IProps) => props.height || '47px'};
+						height: ${(props: IProps) => props.height || 'auto'};
 						padding: ${(props: IProps) => (props.circle ? '10px 13px' : props.padding || '10px 44px')};
 						background: transparent;
 						color: ${({ theme }) => theme.BTN_NORMAL_COLOR};

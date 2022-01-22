@@ -6,20 +6,26 @@ import Select, { IProps as ISelectProps } from '@/components/library/select';
 import { FormInputWrapper } from './form-styled';
 import ErrorText from './error';
 
-export const FormSelect: FC<IProps> = ({ name, margin, padding, hidden, validate, showErrorText, ...props }) => {
-	const { errors, control } = useFormContext();
-	const errorText: string | undefined = errors && errors[name]?.message;
-	const { defaultValue } = props;
+export const FormSelect: FC<IProps> = ({
+	name,
+	margin,
+	padding,
+	hidden,
+	validate,
+	showErrorText,
+	defaultValue,
+	...props
+}) => {
+	const { formState, control } = useFormContext();
+	const errorText: string | undefined = formState.errors && formState.errors[name]?.message;
 
 	return (
 		<FormInputWrapper margin={margin} padding={padding} hidden={hidden} showErrorText={showErrorText}>
 			<Controller
-				as={<Select name={name} errorText={errorText} {...props} />}
+				render={() => <Select name={name} errorText={errorText} {...props} />}
 				name={name}
 				control={control}
 				rules={{ validate }}
-				mode="onChange"
-				type="select"
 				defaultValue={defaultValue}
 			/>
 

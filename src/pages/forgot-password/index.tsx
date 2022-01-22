@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
 import { Flex, FlexItem } from '@/styled/flex';
@@ -44,7 +44,7 @@ export const Forgot = () => {
 		<>
 			<Helmet title={t('Forgot Password')} />
 
-			<FormContext {...methods}>
+			<FormProvider {...methods}>
 				<Flex center height="100%">
 					<FlexItem flex="0 1 600px">
 						<form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -87,7 +87,7 @@ export const Forgot = () => {
 						</form>
 					</FlexItem>
 				</Flex>
-			</FormContext>
+			</FormProvider>
 		</>
 	);
 };

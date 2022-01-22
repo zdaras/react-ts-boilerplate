@@ -1,11 +1,8 @@
-import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper';
 
 import { IRootStore } from '@/store/ducks/root-reducer';
 import LoadingLarge from '@/components/shared/loading-large';
-
-const locationHelper = locationHelperBuilder({});
 
 // USER
 const userIsAuthenticatedDefaults = {
@@ -32,6 +29,6 @@ export const userIsNotAuthenticated = connectedAuthWrapper(userIsNotAuthenticate
 
 export const userIsNotAuthenticatedRedir = connectedRouterRedirect({
 	...userIsNotAuthenticatedDefaults,
-	redirectPath: (_state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
+	redirectPath: '/',
 	allowRedirectBack: false
 });
