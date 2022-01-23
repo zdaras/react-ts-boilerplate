@@ -6,11 +6,9 @@ import { IError } from '@/types/error';
 import { userActions } from '@/store/ducks/user';
 import { store } from '@/index';
 
-const API_LOCALSTORAGE: string = storage('API_LOCALSTORAGE').get();
-
 export const otpHeader = 'x-as-otp';
 
-const baseURL = API_LOCALSTORAGE || process.env.API_BASE_URL;
+const baseURL = process.env.API_BASE_URL;
 export const authToken = String(process.env.AUTH_TOKEN);
 
 const instance = axios.create({ baseURL });
@@ -28,16 +26,6 @@ export const deleteAuthHeader = () => {
 	storage('access_token').unset();
 	storage('refresh_token').unset();
 	delete instance.defaults.headers.common[authToken]; // remove on logout action
-};
-
-export const setApiUrl = (url?: string) => {
-	if (url) {
-		storage('API_LOCALSTORAGE').set(url);
-		instance.defaults.baseURL = url;
-	} else {
-		storage('API_LOCALSTORAGE').unset();
-		instance.defaults.baseURL = process.env.API_BASE_URL;
-	}
 };
 
 let authTokenRequest: Promise<any> | null;

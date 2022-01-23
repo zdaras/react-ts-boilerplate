@@ -1,6 +1,6 @@
 import * as ts from 'io-ts';
 
-export const IBtcUsdValidator = ts.type({
+export const BtcUsdSchema = ts.type({
 	ticker: ts.type({
 		base: ts.string,
 		target: ts.string,
@@ -13,4 +13,4 @@ export const IBtcUsdValidator = ts.type({
 	error: ts.string
 });
 
-export type IBtcUsd = ts.TypeOf<typeof IBtcUsdValidator>;
+export type IBtcUsd = ts.TypeOf<typeof BtcUsdSchema>;
