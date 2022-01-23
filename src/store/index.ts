@@ -5,6 +5,8 @@ import rootReducer, { IRootStore } from './ducks/root-reducer';
 
 export const history: History = createBrowserHistory();
 
+history.listen(() => window.scrollTo(0, 0)); // scroll to top on route change
+
 export const configureStore = (preloadedState: object = {}): Store<IRootStore> => {
 	const store: Store<IRootStore> = createStore({
 		reducer: rootReducer(),
