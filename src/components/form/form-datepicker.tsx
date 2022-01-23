@@ -14,12 +14,13 @@ export const FormDatepicker: FC<IProps> = ({ name, margin, padding, validate, sh
 	return (
 		<FormInputWrapper margin={margin} padding={padding}>
 			<Controller
-				render={() => <Datepicker name={name} errorText={errorText} {...props} />}
+				render={({ field }) => {
+					return <Datepicker errorText={errorText} {...props} {...field} ref={null} />;
+				}}
 				name={name}
 				control={control}
 				rules={{ validate }}
-				// mode="onChange"
-				// type="input"
+				defaultValue={null}
 			/>
 
 			{showErrorText && <ErrorText inForm text={errorText} show={showErrorText} />}

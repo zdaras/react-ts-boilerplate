@@ -59,13 +59,14 @@ const config: IConfiguration = {
 		}),
 		new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('development') } }),
 		new CopyWebpackPlugin({ patterns: [{ from: 'src/assets/', to: 'assets/', globOptions: { ignore: ['*.scss'] } }] }),
-		new MiniCssExtractPlugin({ filename: '[name].css', chunkFilename: '[id].css' }),
-		new webpack.HotModuleReplacementPlugin()
+		new MiniCssExtractPlugin({ filename: '[name].css', chunkFilename: '[id].css' })
 	],
 	cache: true,
 	bail: false,
 	devtool: 'inline-source-map',
 	devServer: {
+		liveReload: false,
+		hot: true,
 		open: true,
 		port: 8080,
 		historyApiFallback: true,

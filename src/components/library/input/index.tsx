@@ -122,7 +122,7 @@ export interface IProps {
 	datepicker?: boolean;
 	readOnly?: boolean;
 	checked?: boolean;
-	setValue?: (name: string, value?: any) => any;
+	setValue?: (name: any, value?: any) => any;
 	uncheck?: boolean;
 	autoComplete?: string;
 	success?: boolean;
@@ -144,6 +144,5 @@ Input.defaultProps = {
 
 export default memo(Input);
 
-export { default as DoubleInput } from './double-input';
 export { default as InputRange } from './input-range';
 export { default as CodeInput } from './code-input';

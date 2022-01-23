@@ -308,7 +308,8 @@ export class Select extends Component<IProps, IState> {
 										)}
 										<SelectedOptionValueStyled dropdownType={dropdownType}>
 											{o.label || o.value}
-											{multiple && hideComma ? '' : ','}
+											{multiple && hideComma && ''}
+											{multiple && !hideComma && ','}
 										</SelectedOptionValueStyled>
 										{dropdownType === 'currency' && secondaryLabel && (
 											<OptionSecondaryLabel>{o.secondaryLabel}</OptionSecondaryLabel>

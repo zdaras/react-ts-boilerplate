@@ -35,7 +35,7 @@ export const SelectStyled = styled.div<IProps & { isOpen: boolean; disabled: boo
 			: '50px'};
 	letter-spacing: 0.4px;
 	border: ${props => (props.borderless ? 'none' : '1px solid')};
-	padding: ${props => props.padding || '6px 24px 6px 24px'};
+	padding: ${props => props.padding || '6px 28px 6px 28px'};
 	margin: 0;
 	outline: 0;
 	background: ${props =>
@@ -147,13 +147,13 @@ export const SelectPlaceholderStyled = styled.span<ISelectPlaceholderStyled>`
 	align-self: center;
 	flex-wrap: wrap;
 	overflow: hidden;
-	max-width: calc(100% - 24px);
+	max-width: calc(100% - 28px);
 	flex: 1 1 auto;
 	padding: ${props => (props.grey ? '0 8px' : '0')};
 	position: absolute;
-	left: 24px;
+	left: 26px;
 	top: 50%;
-	margin-top: -8px;
+	margin-top: -11px;
 	transition: all 0.2s ease;
 
 	${(props: ISelectPlaceholderStyled): any => {
@@ -168,7 +168,6 @@ export const SelectPlaceholderStyled = styled.span<ISelectPlaceholderStyled>`
 					top: 0;
 					color: ${({ theme }) => (!props.isOpen ? theme.INPUT_LABEL_COLOR : theme.INPUT_BORDER_COLOR_FOCUSED)};
 					font-size: 0.75rem;
-					left: 20px;
 					letter-spacing: 0.4px;
 
 					/* ${({ errorText }: ISelectPlaceholderStyled): any =>
@@ -354,7 +353,7 @@ export const SelectedOptionLabels = styled.div`
 	display: flex;
 	align-self: center;
 	flex-wrap: wrap;
-	max-width: calc(100% - 24px);
+	max-width: calc(100% - 28px);
 	flex: 1 1 auto;
 `;
 

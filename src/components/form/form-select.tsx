@@ -13,7 +13,7 @@ export const FormSelect: FC<IProps> = ({
 	hidden,
 	validate,
 	showErrorText,
-	defaultValue,
+	defaultValue = null,
 	...props
 }) => {
 	const { formState, control } = useFormContext();
@@ -22,7 +22,9 @@ export const FormSelect: FC<IProps> = ({
 	return (
 		<FormInputWrapper margin={margin} padding={padding} hidden={hidden} showErrorText={showErrorText}>
 			<Controller
-				render={() => <Select name={name} errorText={errorText} {...props} />}
+				render={({ field }) => {
+					return <Select errorText={errorText} {...props} {...field} />;
+				}}
 				name={name}
 				control={control}
 				rules={{ validate }}

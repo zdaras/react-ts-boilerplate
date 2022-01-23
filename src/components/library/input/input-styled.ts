@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { IProps } from '.';
-import { IProps as IDoubleInputProps } from './double-input';
 
 export const InputStyled = styled.input<IProps>`
 	border-radius: ${({ theme }) => theme.INPUT_BORDER_RADIUS};
@@ -10,7 +9,7 @@ export const InputStyled = styled.input<IProps>`
 	width: 100%;
 	outline: none;
 	transition: all 0.3s ease;
-	padding: 0 30px;
+	padding: 0 28px;
 	font-family: ${({ theme }) => theme.INPUT_FONT};
 	font-size: ${({ theme }) => theme.INPUT_FONT_SIZE};
 	line-height: ${({ theme }) => theme.INPUT_LINE_HEIGHT};
@@ -146,99 +145,6 @@ export const InputStyled = styled.input<IProps>`
 				opacity: 0.6;
 			}
 		`}
-`;
-
-export const DoubleInputContainerStyled = styled.div<IProps>`
-	border-radius: 33px;
-	border: 1px solid ${({ theme }) => theme.INPUT_BORDER_COLOR};
-	height: ${({ theme }) => theme.INPUT_HEIGHT};
-	width: 100%;
-	outline: none;
-	transition: all 0.3s ease;
-	padding: 0 30px;
-	display: flex;
-	align-items: center;
-
-	:focus-within {
-		border-color: ${({ theme }) => theme.INPUT_BORDER_COLOR_FOCUSED};
-
-		~ label.input-label-double {
-			color: ${({ theme }) => theme.INPUT_BORDER_COLOR_FOCUSED};
-		}
-	}
-
-	${({ errorText, theme }) =>
-		errorText &&
-		css`
-			 {
-				border-color: ${theme.INPUT_ERROR_BORDER_COLOR} !important;
-				/* background-color: ${theme.INPUT_ERROR_BACKGROUND_COLOR}; */
-
-				~ label.input-label-double {
-					color: ${theme.INPUT_ERROR_BORDER_COLOR} !important;
-				}
-			}
-		`}
-
-	${({ inputType }) => {
-		switch (inputType) {
-			case 'filter':
-				return css`
-					 {
-						height: 47px;
-					}
-				`;
-			default:
-				return css`
-					 {
-						height: ${({ theme }) => theme.INPUT_HEIGHT};
-					}
-				`;
-		}
-	}}
-`;
-
-export const DoubleInputStyled = styled.input<IDoubleInputProps>`
-	border: 0;
-	background: transparent;
-	/* width: 40%; */
-	/* flex: 1 1 40%; */
-	width: ${props => (props.secondInput ? `calc(50% - ${props.inputPadding})` : `calc(100% - ${props.inputPadding})`)};
-	letter-spacing: 0.5px;
-	font-family: ${({ theme }) => theme.INPUT_FONT};
-	font-size: ${({ theme }) => theme.INPUT_FONT_SIZE};
-	line-height: ${({ theme }) => theme.INPUT_LINE_HEIGHT};
-	box-shadow: none;
-
-	::placeholder {
-		color: ${props => props.theme.INPUT_PLACEHOLDER_COLOR};
-		opacity: 0.7;
-	}
-`;
-
-export const Seperator = styled.span<IProps>`
-	width: 12px;
-	color: #2d2d52;
-	margin: 0 10px;
-`;
-
-export const TopLabel = styled.label<IProps>`
-	top: 1px;
-	left: 22px;
-	position: absolute;
-	color: #79798e;
-	background-color: ${({ theme }) => theme.INPUT_LABEL_BG_COLOR};
-	padding: 0px 7px;
-	margin-top: -9px;
-	font-size: 0.75rem;
-`;
-
-export const LabelFrom = styled.span<IProps>`
-	color: #cfcfe0;
-	padding-left: 5px;
-	letter-spacing: 0.5px;
-	font-size: 0.875rem;
-	width: 40px;
 `;
 
 export const AbsoluteCompStyled = styled.span`
