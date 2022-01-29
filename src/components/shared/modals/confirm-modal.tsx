@@ -34,7 +34,7 @@ export const ConfirmModal: FC<IProps> = ({ isOpen, closeModal, closeParentModal,
 					{t(text)}
 				</H5>
 			)}
-			<ErrorText text={formError.errorDescription} center />
+			<ErrorText formError={formError} center />
 			<Button text={t('Confirm')} onClick={handleSubmit} loading={loading} />
 			<Divider margin="0 0 15px 0" />
 			<Button text={t('Cancel')} onClick={closeModal} buttonType="text" />

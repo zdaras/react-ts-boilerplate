@@ -69,7 +69,7 @@ export const Register = () => {
 
 								<Button type="submit" text={t('Sign Up')} loading={methods.formState.isSubmitting} />
 
-								<ErrorText text={formError.errorDescription} center margin="14px 0 0" />
+								<ErrorText formError={formError} center margin="14px 0 0" />
 
 								<Flex center>
 									<H5 align="center" padding="12px 0 0">

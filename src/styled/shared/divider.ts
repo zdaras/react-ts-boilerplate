@@ -25,7 +25,6 @@ export const Divider = styled.div<IProps>`
 	width: 100%;
 	position: relative;
 	transition: all 0.3s ease;
-	border: 1px solid #f1f1f1cc;
 
 	${props =>
 		props.margin &&

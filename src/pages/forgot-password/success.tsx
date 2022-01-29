@@ -6,11 +6,11 @@ import { Divider } from '@/styled/shared/divider';
 import { BlockStyled, H4 } from '@/styled/shared';
 import { Flex } from '@/styled/flex';
 
-export const ForgotPasswordSuccess = ({ left }: IProps) => {
+export const ForgotPasswordSuccess = ({ success }: IProps) => {
 	const { t } = useTranslation();
 
 	return (
-		<Divider position="absolute" left={left} top="0px" transition="all 0.3s ease" height="100%" zIndex={2}>
+		<Divider position="absolute" left={success} top="0px" transition="all 0.3s ease" height="100%" zIndex={2}>
 			<BlockStyled formPadding shadow="none">
 				<Flex center full direction="column">
 					<CheckIcon width="42" height="42" />
@@ -22,7 +22,7 @@ export const ForgotPasswordSuccess = ({ left }: IProps) => {
 };
 
 export interface IProps {
-	left?: string;
+	success?: string;
 }
 
 export default ForgotPasswordSuccess;

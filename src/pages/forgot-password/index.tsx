@@ -1,93 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 
 import { Flex, FlexItem } from '@/styled/flex';
-import { FormInput, ErrorText } from '@/components/form';
+import { Form, FormInput, ErrorText } from '@/components/form';
 import { Link } from '@components/library/link';
 import { Divider } from '@/styled/shared/divider';
 import Button from '@components/library/button';
 import Helmet from '@/components/shared/helmet';
-import { BlockStyled, H1, H5, Message } from '@/styled/shared';
-import useFormError from '@/hooks/useFormError';
+import { BlockStyled, H1, H5 } from '@/styled/shared';
 import { required } from '@/utils/validator';
 import Api from '@/services/api';
-import { qs } from '@/utils/helpers';
+import { useApiFormSubmit } from '@/hooks';
 
 import ForgotPasswordSuccess from './success';
 
-export const Forgot = () => {
+const Forgot = () => {
 	const { t } = useTranslation();
-	const [left, setLeft] = useState(false);
-	const methods = useForm();
-	const { formError, setFormError } = useFormError();
-	const [showTwoFaCancelMessage, setCancelMessage] = useState(false);
-	const queryParams: { cancelTwoFaRecovery?: string } = qs.parse(useLocation().search); // { cancelTwoFaRecovery: true }
+	const [sendRecoveryEmail, formError, loading, success] = useApiFormSubmit(Api.user.sendRecoveryEmail);
 
-	useEffect(() => {
-		if (queryParams.cancelTwoFaRecovery) setCancelMessage(true);
-	}, []);
-
-	const onSubmit = async (values = {}) => {
-		try {
-			setFormError();
-			await Api.user.sendRecoveryEmail(values);
-			methods.reset();
-			setLeft(true);
-		} catch (error) {
-			setFormError(error);
-		}
-	};
+	const onSubmit = async (values = {}) => sendRecoveryEmail(values);
 
 	return (
 		<>
 			<Helmet title={t('Forgot Password')} />
 
-			<FormProvider {...methods}>
-				<Flex center height="100%">
-					<FlexItem flex="0 1 600px">
-						<form onSubmit={methods.handleSubmit(onSubmit)}>
-							<Divider shadow="0px 3px 24px #9799c129" overflow="hidden">
-								<ForgotPasswordSuccess left={left ? '0px' : '-600px'} />
+			<Flex center height="100%">
+				<FlexItem flex="0 1 600px">
+					<Form onSubmit={onSubmit}>
+						<Divider shadow="0px 3px 24px #9799c129" overflow="hidden">
+							<ForgotPasswordSuccess success={success ? '0px' : '-600px'} />
 
-								<BlockStyled formPadding>
-									<Divider margin={showTwoFaCancelMessage ? '10px 0' : '40px 0'}>
-										<H1 weight="600" align="center" margin="0 0 20px">
-											{t('Forgot Password')}
-										</H1>
+							<BlockStyled formPadding>
+								<H1 weight="600" align="center" margin="0 0 20px">
+									{t('Recover Password')}
+								</H1>
 
-										<H5 opacity="1" align="center">
-											{t('Enter your e-mail address to reset your password')}
-										</H5>
+								<H5 opacity="1" align="center" padding="0 0 50px">
+									{t('Enter your e-mail address to reset your password')}
+								</H5>
 
-										<Divider margin="60px 0 0">
-											<FormInput name="username" autoFocus label="Enter E-mail" validate={required} margin="0" />
-										</Divider>
+								<FormInput autoFocus name="username" label="Enter E-mail" margin="0" validate={required} />
 
-										<ErrorText text={formError.errorDescription} center margin="10px 0" />
+								<ErrorText center formError={formError} margin="10px 0" />
 
-										<Button type="submit" text={t('Send E-mail')} loading={methods.formState.isSubmitting} />
+								<Button type="submit" text={t('Send E-mail')} loading={loading} />
 
-										<Divider margin="14px 0 0 0">
-											<Link to="/login">
-												<Button buttonType="text" text={t('Back to Login')} />
-											</Link>
-										</Divider>
-									</Divider>
-									{showTwoFaCancelMessage && (
-										<Message>
-											{t(
-												'2FA recovery process was canceled. If you did not request 2FA recovery it is recommended to reset your password'
-											)}
-										</Message>
-									)}
-								</BlockStyled>
-							</Divider>
-						</form>
-					</FlexItem>
-				</Flex>
-			</FormProvider>
+								<Link to="/login">
+									<Button buttonType="text" text={t('Back to Login')} padding="20px" />
+								</Link>
+							</BlockStyled>
+						</Divider>
+					</Form>
+				</FlexItem>
+			</Flex>
 		</>
 	);
 };

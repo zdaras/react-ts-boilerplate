@@ -50,11 +50,16 @@ export const Login = () => {
 										name="password"
 										type="password"
 										label={t('Enter Password')}
-										validate={required}
 										margin="0 0 10px"
+										validate={required}
+										AbsoluteComp={
+											<Link to="/forgot-password">
+												<Button buttonType="text" text={t('Forgot?')} padding="0" />
+											</Link>
+										}
 									/>
 
-									<ErrorText text={formError.errorDescription} center multiline />
+									<ErrorText formError={formError} center multiline />
 
 									<Divider margin="14px 0">
 										<Button type="submit" text={t('Login')} loading={methods.formState.isSubmitting} />
