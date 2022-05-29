@@ -25,7 +25,7 @@ const useApi = <T>(
 		});
 	};
 
-	const fetchUrl = async (par: any = null, withLoading = true) => {
+	const fetchUrl = useCallback(async (par: any = null, withLoading = true) => {
 		try {
 			const newParams = par || params;
 			if (typeof apiCallFunction === 'function') {
@@ -46,7 +46,7 @@ const useApi = <T>(
 			setLoading(false);
 			setFetched(true);
 		}
-	};
+	}, []);
 
 	const reset = useCallback((resetParams = true) => {
 		setData(initialData);

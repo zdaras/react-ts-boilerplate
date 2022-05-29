@@ -1,10 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const useModal = <T extends Record<string, any>>(initialState = false, initState = {}): IReturn<T> => {
+const useModal = <T extends Record<string, any>>(initialState = false, initState = {} as T): IReturn<T> => {
 	const [isOpen, setOpen] = useState(initialState);
-	const [showSuccess, setSuccess] = useState(false);
-	const [showProgress, setProgress] = useState(false);
-	const [showError, setError] = useState(false);
 	const [item, setSelectedItem] = useState(initState);
 
 	const closeModal = useCallback(() => {
@@ -15,37 +12,16 @@ const useModal = <T extends Record<string, any>>(initialState = false, initState
 	const openModal = useCallback(
 		(setItem = null) => {
 			if (setItem) setSelectedItem(setItem);
-			setSuccess(false);
-			setProgress(false);
-			setError(false);
 			setOpen(true);
 		},
-		[isOpen, setSuccess, setProgress, setError, setOpen]
+		[isOpen, setOpen]
 	);
 
-	return {
-		isOpen,
-		showSuccess,
-		showProgress,
-		showError,
-		setSuccess,
-		setProgress,
-		setError,
-		closeModal,
-		openModal,
-		// @ts-ignore
-		item
-	};
+	return { isOpen, closeModal, openModal, item };
 };
 
 interface IReturn<T> {
 	isOpen: boolean;
-	showSuccess: boolean;
-	showProgress: boolean;
-	showError: boolean;
-	setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
-	setProgress: React.Dispatch<React.SetStateAction<boolean>>;
-	setError: React.Dispatch<React.SetStateAction<boolean>>;
 	closeModal: () => void;
 	openModal: (setItem?: any) => void;
 	item: T;

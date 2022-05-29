@@ -1,4 +1,5 @@
 import { Action as ReduxAction, AnyAction } from '@reduxjs/toolkit';
+import { FunctionComponent, ReactNode } from 'react';
 
 import { IRootStore } from '@/store/ducks/root-reducer';
 
@@ -41,3 +42,5 @@ export interface IPagination {
 export interface IOtp {
 	otp?: string;
 }
+
+export type FC<P = {}> = FunctionComponent<P & { children: JSX.Element | ReactNode }>;

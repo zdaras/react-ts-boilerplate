@@ -1,10 +1,10 @@
-import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { FormInput, ErrorText } from '@/components/form';
-import { Link } from '@components/library/link';
-import Button from '@components/library/button';
+import { Link } from '@/components/library/link';
+import Button from '@/components/library/button';
 import Helmet from '@/components/shared/helmet';
 import { Divider } from '@/styled/shared/divider';
 import { BlockStyled, H1 } from '@/styled/shared';
@@ -20,11 +20,13 @@ export const Login = () => {
 	const methods = useForm<ILoginParams>();
 	const login = useActions(userActions.login);
 	const { formError, setFormError } = useFormError();
+	const { state } = useLocation();
+	const redirect = (state as any)?.from?.pathname || '/';
 
 	const onSubmit = async (values: ILoginParams) => {
 		try {
 			setFormError();
-			await login(values);
+			await login(values, redirect);
 		} catch (error) {
 			setFormError(error);
 		}

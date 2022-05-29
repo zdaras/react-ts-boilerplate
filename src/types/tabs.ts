@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export type IPanel = {
-	children?: ReactNode;
+	children: ReactNode | JSX.Element;
 	title?: string;
 	props?: {
 		title: string;

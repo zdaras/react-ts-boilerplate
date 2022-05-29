@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { ITab, IPanel } from '@/types/tabs';
+import { FC } from '@/types';
 
 import { Tab } from './tab.styled';
 import { TabMenu } from './inline.styled';
@@ -55,4 +56,4 @@ Tabs.defaultProps = {
 
 export default Tabs;
 
-export const Panel: React.FC<IPanel> = ({ children }) => <div>{children}</div>;
+export const Panel: FC<IPanel> = ({ children }) => <div>{children}</div>;

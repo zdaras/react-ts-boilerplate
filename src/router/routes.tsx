@@ -1,48 +1,56 @@
-import React, { FC } from 'react';
-import { RouteProps } from 'react-router';
-import loadable from '@loadable/component';
-
-import { userIsNotAuthenticatedRedir } from '@/components/hoc/auth';
+import PrivateRoute from '@/components/hoc/private-route';
+import UserIsNotAuth from '@/components/hoc/user-is-not-authenticated';
+import SkipAuthCheck from '@/components/hoc/skip-auth-check';
 import { BlankLayout, MainLayout } from '@/components/layout';
-import Login from '@/pages/login';
-import Register from '@/pages/register';
-import Dashboard from '@/pages/dashboard';
-
-export const AsyncPage: any = loadable(
-	(props: IAsyncPageProps): any => import(/* webpackPrefetch: true */ `@/pages/${props.page}`)
-);
+import Login from '@/pages/login/login';
+import Register from '@/pages/register/register';
+import Dashboard from '@/pages/dashboard/dashboard';
+import ForgotPassword from '@/pages/forgot-password/forgot-password';
+import PasswordRecovery from '@/pages/password-recovery/password-recovery';
+import NotFound from '@/pages/not-found';
+import { FC } from '@/types';
 
 export const routes: IRoute[] = [
 	{
 		path: '/login',
 		showInMenu: false,
-		Component: userIsNotAuthenticatedRedir(Login),
-		Layout: BlankLayout
+		Component: Login,
+		Layout: BlankLayout,
+		AuthCheck: UserIsNotAuth
 	},
 	{
 		path: '/register',
 		showInMenu: false,
-		Component: userIsNotAuthenticatedRedir(Register),
-		Layout: BlankLayout
+		Component: Register,
+		Layout: BlankLayout,
+		AuthCheck: UserIsNotAuth
 	},
 	{
 		path: '/forgot-password',
 		showInMenu: false,
-		Component: (props: RouteProps) => <AsyncPage page="forgot-password" {...props} />,
-		Layout: BlankLayout
+		Component: ForgotPassword,
+		Layout: BlankLayout,
+		AuthCheck: UserIsNotAuth
 	},
 	{
 		path: '/password-recovery',
 		showInMenu: false,
-		Component: (props: RouteProps) => <AsyncPage page="password-recovery" {...props} />,
-		Layout: BlankLayout
+		Component: PasswordRecovery,
+		Layout: BlankLayout,
+		AuthCheck: UserIsNotAuth
 	},
 	{
 		path: '/',
-		name: 'Dashboard',
 		showInMenu: true,
 		Component: Dashboard,
-		Layout: MainLayout
+		Layout: MainLayout,
+		AuthCheck: SkipAuthCheck
+	},
+	{
+		path: '*',
+		Component: NotFound,
+		Layout: MainLayout,
+		AuthCheck: SkipAuthCheck
 	}
 ];
 
@@ -50,14 +58,11 @@ export const router = [{ routes }];
 
 export const sidebarMenuList = routes.filter(i => i.showInMenu); // show in sidebar
 
-interface IAsyncPageProps {
-	page: string;
-}
-
 export interface IRoute {
 	path: string;
 	name?: string;
-	showInMenu: boolean;
+	showInMenu?: boolean;
 	Component: any;
 	Layout: FC;
+	AuthCheck: FC;
 }

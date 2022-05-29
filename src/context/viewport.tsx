@@ -1,4 +1,6 @@
-import React, { createContext, FC, useEffect, useState, useMemo } from 'react';
+import { createContext, useEffect, useState, useMemo } from 'react';
+
+import { FC } from '@/types';
 
 export const ViewportContext = createContext({
 	width: 0,

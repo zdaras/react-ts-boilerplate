@@ -1,8 +1,9 @@
-import React, { useState, useEffect, FC } from 'react';
+import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { CloseIcon } from '@/components/icons';
 import { H2 } from '@/styled/shared';
+import { FC } from '@/types';
 
 import { ModalBackgroundStyled, ModalBody, ModalTitle, ModalTopPanel, Close } from './modal-styled';
 

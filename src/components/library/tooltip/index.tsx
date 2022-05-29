@@ -1,5 +1,5 @@
 import React, { memo, FC } from 'react';
-import { TooltipIcon } from '@components/icons';
+import { TooltipIcon } from '@/components/icons';
 
 import { StyledTooltip } from './tooltip.styled';
 

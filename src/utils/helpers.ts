@@ -10,11 +10,6 @@ export const capitalize = (s: string, lowercase = true) => {
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const getFileAndName = (res: any) => {
-	const [, filename] = res.headers['content-disposition'].split('filename=');
-	return { data: res.data, filename };
-};
-
 export const downloadBlobFile = (file: any, filename: string) => {
 	const url = window.URL.createObjectURL(new Blob([file]));
 	const link = document.createElement('a');

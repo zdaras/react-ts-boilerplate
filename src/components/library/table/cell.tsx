@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-
 import { Link } from '@/components/library/link';
+import { FC } from '@/types';
 
 import { TD } from './table-styled';
 

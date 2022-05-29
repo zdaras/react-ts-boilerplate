@@ -5,6 +5,7 @@ module.exports = {
 		es6: true
 	},
 	parser: '@typescript-eslint/parser',
+	files: ['*.ts', '*.tsx'],
 	parserOptions: {
 		ecmaVersion: 2018,
 		project: './tsconfig.json',
@@ -28,10 +29,13 @@ module.exports = {
 			'@typescript-eslint/parser': ['.ts', '.tsx']
 		},
 		'import/resolver': {
-			webpack: {
-				config: './config/webpack.dev.ts'
-			}
+			typescript: {}
 		}
+		// 'import/resolver': {
+		// 	webpack: {
+		// 		config: './config/webpack.dev.ts'
+		// 	}
+		// }
 	},
 	rules: {
 		'@typescript-eslint/adjacent-overload-signatures': 'error',

@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-
 import { IDataGrid } from '@/types/table';
+import { FC } from '@/types';
 
 import { TR } from './table-styled';
 

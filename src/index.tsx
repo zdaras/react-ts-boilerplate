@@ -1,30 +1,19 @@
-import React from 'react';
-import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from '@/router/app';
-import { configureStore } from '@/store';
+import { store } from '@/store';
 import { appActions } from '@/store/ducks/app';
-import { userActions } from '@/store/ducks/user';
-import storage from '@/utils/storage';
-import { defaultTheme } from '@/styled/themes';
 import '@/services/locale/i18n';
 
-export const store = configureStore();
-const storageTheme = storage('theme').get();
-const accessToken = storage('access_token').get();
-if (storageTheme && storageTheme !== defaultTheme) store.dispatch<any>(appActions.themeSwitchAction(storageTheme));
-if (accessToken) store.dispatch<any>(userActions.getCurrentUser());
+store.dispatch<any>(appActions.initApp());
 
-const renderApp = (AppComponent: any) =>
-	render(
-		<Provider store={store}>
-			<BrowserRouter>
-				<AppComponent />
-			</BrowserRouter>
-		</Provider>,
-		document.getElementById('app')
-	);
+const Index = ({ store: st }: any) => (
+	<Provider store={st}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</Provider>
+);
 
-renderApp(App);
+export default Index;

@@ -4,12 +4,13 @@ import storage from '@/utils/storage';
 import { ILoginResponse } from '@/types/models/user';
 import { IError } from '@/types/error';
 import { userActions } from '@/store/ducks/user';
-import { store } from '@/index';
+import { store } from '@/store';
+import config from '@/utils/config';
 
 export const otpHeader = 'x-as-otp';
 
-const baseURL = process.env.API_BASE_URL;
-export const authToken = String(process.env.AUTH_TOKEN);
+const baseURL = config.API_BASE_URL;
+export const authToken = String(config.AUTH_TOKEN);
 
 const instance = axios.create({ baseURL });
 

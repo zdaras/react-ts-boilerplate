@@ -1,10 +1,5 @@
 export const randomInt = (min = 0, max = 100000) => Math.floor(Math.random() * (max - min + 1) + min);
 
-export const getFileAndName = (res: any) => {
-	const [, filename] = res.headers['content-disposition'].split('filename=');
-	return { data: res.data, filename };
-};
-
 export const numberToFixed = (n: number | string, decimal = 8) => parseFloat(Number(n).toFixed(decimal));
 
 export const numberToFixedString = (n: number | string, decimal = 8) => {

@@ -1,18 +1,16 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Link } from '@components/library/link';
+import { Link } from '@/components/library/link';
 import { Flex, FlexItem } from '@/styled/flex';
 import { FormInput, ErrorText } from '@/components/form';
-import Button from '@components/library/button';
+import Button from '@/components/library/button';
 import { BlockStyled, H5, H1 } from '@/styled/shared';
-import Tooltip from '@components/library/tooltip';
+import Tooltip from '@/components/library/tooltip';
 import Helmet from '@/components/shared/helmet';
 import { isEmail, isValidPassword } from '@/utils/validator';
 import { userActions } from '@/store/ducks/user';
 import useActions from '@/hooks/useActions';
-import useFormError from '@/hooks/useFormError';
+import { useFormError, useTranslation } from '@/hooks';
 import { IRegisterParams } from '@/services/api/user/types';
 
 export const Register = () => {

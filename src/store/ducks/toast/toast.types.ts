@@ -14,9 +14,6 @@ export interface IPartialToast extends Partial<IToast> {}
 
 export interface IToastState {
 	data: IToast[];
-	isProcessing: boolean;
-	processToasts: IToast[];
-	minimizedModal: boolean;
 }
 
 export interface IShowToastAction extends Action {

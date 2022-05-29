@@ -1,16 +1,13 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { Flex, FlexItem } from '@/styled/flex';
-import { Form, FormInput, ErrorText } from '@/components/form';
-import { Link } from '@components/library/link';
 import { Divider } from '@/styled/shared/divider';
-import Button from '@components/library/button';
-import Helmet from '@/components/shared/helmet';
 import { BlockStyled, H1, H5 } from '@/styled/shared';
-import { required } from '@/utils/validator';
+import { Form, FormInput, ErrorText } from '@/components/form';
+import { Link } from '@/components/library/link';
+import Button from '@/components/library/button';
+import Helmet from '@/components/shared/helmet';
 import Api from '@/services/api';
-import { useApiFormSubmit } from '@/hooks';
+import { useApiFormSubmit, useTranslation } from '@/hooks';
+import { required } from '@/utils/validator';
 
 import ForgotPasswordSuccess from './success';
 
@@ -18,7 +15,7 @@ const Forgot = () => {
 	const { t } = useTranslation();
 	const [sendRecoveryEmail, formError, loading, success] = useApiFormSubmit(Api.user.sendRecoveryEmail);
 
-	const onSubmit = async (values = {}) => sendRecoveryEmail(values);
+	const onSubmit = async (values: Parameters<typeof sendRecoveryEmail>[0]) => sendRecoveryEmail(values);
 
 	return (
 		<>
@@ -39,7 +36,7 @@ const Forgot = () => {
 									{t('Enter your e-mail address to reset your password')}
 								</H5>
 
-								<FormInput autoFocus name="username" label="Enter E-mail" margin="0" validate={required} />
+								<FormInput name="username" label="Enter E-mail" margin="0" validate={required} />
 
 								<ErrorText center formError={formError} margin="10px 0" />
 

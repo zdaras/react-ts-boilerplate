@@ -3,26 +3,32 @@ import * as E from 'fp-ts/Either';
 import { failure } from 'io-ts/PathReporter';
 import { pipe } from 'fp-ts/lib/function';
 
-const decodeWith = <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
-	codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
-) => (data: DecodeFrom): ApplicationType =>
-	pipe(
-		codec.decode(data),
-		E.getOrElseW(errors => {
-			console.error(failure(errors).join('\n'));
-			return data as any;
-			// throw new Error(failure(errors).join('\n'));
-		})
-	);
+import config from '@/utils/config';
 
-export const decode = <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
-	c: T.Type<ApplicationType, EncodeTo, DecodeFrom>,
-	defaultDecode = true
-) => (response: any): T.TypeOf<typeof c> => {
-	if (process.env.NODE_ENV === 'production' || !defaultDecode) {
-		const resolve: T.TypeOf<typeof c> = response.data;
-		return resolve;
-	}
+const decodeWith =
+	<ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
+		codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
+	) =>
+	(data: DecodeFrom): ApplicationType =>
+		pipe(
+			codec.decode(data),
+			E.getOrElseW(errors => {
+				console.error(failure(errors).join('\n'));
+				return data as any;
+				// throw new Error(failure(errors).join('\n'));
+			})
+		);
 
-	return decodeWith(c)(response.data);
-};
+export const decode =
+	<ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
+		c: T.Type<ApplicationType, EncodeTo, DecodeFrom>,
+		defaultDecode = true
+	) =>
+	(response: any): T.TypeOf<typeof c> => {
+		if (config.isProd || !defaultDecode) {
+			const resolve: T.TypeOf<typeof c> = response.data;
+			return resolve;
+		}
+
+		return decodeWith(c)(response.data);
+	};
