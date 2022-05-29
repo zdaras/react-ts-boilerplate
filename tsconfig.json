@@ -40,7 +40,7 @@
 		"esModuleInterop": true
 	},
 	"compileOnSave": false,
-	"include": ["src/**/*", "test/**/*", "config/**/*"],
+	"include": ["src/**/*", "test/**/*", "config/**/*", ".storybook/**/*"],
 	"exclude": ["node_modules", "dist"],
 	"references": [
     {

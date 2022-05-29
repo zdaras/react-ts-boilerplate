@@ -20,7 +20,9 @@
 		"lint:scss": "stylelint './src/**/*.scss' --config .stylelintrc",
 		"format": "prettier --write src/**/*.{ts,tsx}",
 		"test": "jest",
-		"test:update": "npm test -- -u"
+		"test:update": "npm test -- -u",
+		"storybook": "start-storybook -p 6006",
+		"build:storybook": "build-storybook"
 	},
 	"dependencies": {
 		"@loadable/component": "^5.15.2",
@@ -50,11 +52,16 @@
 		"react-router": "^6.2.1",
 		"react-router-dom": "^6.2.1",
 		"react-verification-code-input": "^1.2.5",
+		"storybook": "^6.5.5",
 		"styled-components": "^5.3.5",
 		"url": "^0.11.0"
 	},
 	"devDependencies": {
 		"@hot-loader/react-dom": "^17.0.2",
+		"@storybook/addon-actions": "^6.5.5",
+		"@storybook/addon-essentials": "^6.5.5",
+		"@storybook/addon-links": "^6.5.5",
+		"@storybook/react": "^6.5.5",
 		"@types/compression-webpack-plugin": "^9.1.1",
 		"@types/copy-webpack-plugin": "^10.1.0",
 		"@types/dotenv-webpack": "^7.0.3",
@@ -126,6 +133,7 @@
 		"rimraf": "^3.0.2",
 		"sass": "^1.50.0",
 		"sass-loader": "^12.4.0",
+		"storybook-dark-mode": "^1.1.0",
 		"style-loader": "^3.3.1",
 		"stylelint": "^14.2.0",
 		"stylelint-config-recommended": "^6.0.0",

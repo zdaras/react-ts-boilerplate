@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider, DefaultTheme } from 'styled-components';
 
-import { themes } from '@/styled/themes';
-import { GlobalStyle } from '@/styled/global';
+import ThemeProvider from '@/styled/theme-provider';
 import ToastContainer from '@/components/toast';
 import { appSelectors } from '@/store/ducks/app';
 
@@ -11,13 +9,11 @@ import { routes } from './routes';
 
 const App = () => {
 	const theme = useSelector(appSelectors.theme);
-	const activeTheme: DefaultTheme = themes[theme];
 
 	return (
-		<ThemeProvider theme={activeTheme}>
+		<ThemeProvider theme={theme}>
 			<>
 				<ToastContainer />
-				<GlobalStyle />
 				<Routes>
 					{routes.map(({ path, AuthCheck, Layout, Component }) => (
 						<Route
