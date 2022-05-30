@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { responsive } from '@/styled/responsive';
 
 export const Tab = styled.div`

@@ -43,4 +43,4 @@ export interface IOtp {
 	otp?: string;
 }
 
-export type FC<P = {}> = FunctionComponent<P & { children: JSX.Element | ReactNode }>;
+export type FC<P = {}> = FunctionComponent<P & { children?: JSX.Element | ReactNode }>;

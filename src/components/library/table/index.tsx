@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IDataGrid } from '@/types/table';
 import { TableComp, TableContainer } from '@/styled/shared/table';
 

@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import storage from '@/utils/storage';
 import { ILoginResponse } from '@/types/models/user';
@@ -16,11 +16,10 @@ const instance = axios.create({ baseURL });
 
 const noAuthInstance = axios.create({ baseURL });
 
-export const setAuthHeader = async (response: Pick<ILoginResponse, 'access_token' | 'refresh_token'>) => {
+export const setAuthHeader = (response: Pick<ILoginResponse, 'access_token' | 'refresh_token'>) => {
 	storage('access_token').set(response.access_token);
 	storage('refresh_token').set(response.refresh_token);
 	instance.defaults.headers.common[authToken] = `Bearer ${response.access_token}`; // set on getCurrentUser success action
-	return Promise.resolve();
 };
 
 export const deleteAuthHeader = () => {
@@ -47,27 +46,24 @@ function getAuthToken(refreshToken: string) {
 instance.interceptors.response.use(
 	res => res,
 	async (error: AxiosError<IError>) => {
-		const originalRequest = error.config;
+		const originalRequest: AxiosRequestConfig & { _retry?: boolean } = error.config;
 		const invalidToken = error.response?.status === 401;
 
 		if (invalidToken) {
 			const refreshToken = storage('refresh_token').get();
-			// @ts-ignore
+
 			if (!['undefined', 'null'].includes(String(refreshToken)) && !originalRequest._retry) {
 				delete originalRequest.headers?.[authToken];
 				try {
 					const res = await getAuthToken(refreshToken);
 					if ([200, 201].includes(res.status)) {
-						await setAuthHeader(res.data);
-						// @ts-ignore
+						setAuthHeader(res.data);
 						originalRequest._retry = true;
-						// @ts-ignore
-						originalRequest.headers[authToken] = `Bearer ${res.data.access_token}`;
+						if (originalRequest.headers) originalRequest.headers[authToken] = `Bearer ${res.data.access_token}`;
 						return instance(originalRequest);
 					}
-				} catch (err) {
+				} catch (err: any) {
 					store.dispatch<any>(userActions.logout());
-					// @ts-ignore
 					return Promise.reject(err?.response?.data);
 				}
 			} else {

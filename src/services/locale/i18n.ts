@@ -21,6 +21,7 @@ i18n
 		interpolation: {
 			escapeValue: false
 		},
+		keySeparator: false,
 		nsSeparator: false
 	});
 

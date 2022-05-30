@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Range as ReactRange } from 'react-range';
 
 import { RangeTrack, RangeThumb, RangeLabel, RangeContainer, RangeLabels, RangeBottomLabel } from './input-styled';

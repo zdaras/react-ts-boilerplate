@@ -13,7 +13,7 @@ const UserIsNotAuth: FC = ({ children }) => {
 
 	if (isLoggedIn && !loading) return <Navigate to="/" />;
 
-	return children;
+	return <>{children}</>;
 };
 
 export default UserIsNotAuth;

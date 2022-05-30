@@ -83,12 +83,6 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
-  a.table-link {
-    display: flex;
-    height: 100%;
-    align-items: center;
-  }
-
   b,
   strong {
     font-weight: bolder;

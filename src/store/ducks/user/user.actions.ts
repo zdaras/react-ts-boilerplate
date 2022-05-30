@@ -21,7 +21,7 @@ export const getCurrentUser =
 			const access_token: string = storage('access_token').get();
 			const refresh_token: string = storage('refresh_token').get();
 			const data = await Api.user.currentUser(access_token);
-			await setAuthHeader({ access_token, refresh_token });
+			setAuthHeader({ access_token, refresh_token });
 			dispatch(user.actions.loginSuccessAction(data));
 			return Promise.resolve();
 		} catch (e) {
@@ -35,7 +35,7 @@ export const login =
 	async dispatch => {
 		try {
 			const res = await Api.user.login(p);
-			await setAuthHeader(res);
+			setAuthHeader(res);
 			await dispatch(getCurrentUser(false));
 			if (redirect) dispatch(appActions.routerPush(redirect));
 			return Promise.resolve();

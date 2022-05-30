@@ -14,7 +14,7 @@ const PrivateRoute: FC = ({ children }) => {
 
 	if (!isLoggedIn && !loading) return <Navigate replace to="/login" state={{ from: location }} />;
 
-	return children;
+	return <>{children}</>;
 };
 
 export default PrivateRoute;

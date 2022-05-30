@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { IProps } from './cell';
 
@@ -14,29 +14,6 @@ export const TD = styled.td<IProps>`
 	height: 60px;
 `;
 
-export const TR = styled.tr<{ dark?: boolean; actionsHover?: boolean }>`
+export const TR = styled.tr`
 	transition: 0.2s ease-in-out;
-
-	${({ dark }) =>
-		dark &&
-		css`
-			td a {
-				opacity: 0.5;
-			}
-		`}
-
-	${({ actionsHover }) =>
-		actionsHover &&
-		css`
-			:hover {
-				.trans-amount-wrapper {
-					right: 94px;
-				}
-
-				.trans-actions {
-					opacity: 1;
-					visibility: visible;
-				}
-			}
-		`}
 `;

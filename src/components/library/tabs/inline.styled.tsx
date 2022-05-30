@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { responsive } from '@/styled/responsive';
 
 export const TabMenu = styled.ul`
@@ -18,7 +19,7 @@ export const TabMenu = styled.ul`
 		font-size: 20px;
 		transition: all 0.3s;
 		cursor: pointer;
-		color: #79798e;
+		color: ${({ theme }) => theme.DEFAULT_FONT_COLOR};
 		text-align: center;
 		position: relative;
 
@@ -40,11 +41,11 @@ export const TabMenu = styled.ul`
 		}
 
 		&.selected {
-			color: #2590f7;
+			color: ${({ theme }) => theme.DEFAULT_FONT_COLOR_ACTIVE};
 
 			&:before {
 				height: 3px;
-				background: #2590f7;
+				background: ${({ theme }) => theme.DEFAULT_FONT_COLOR_ACTIVE};
 			}
 		}
 	}

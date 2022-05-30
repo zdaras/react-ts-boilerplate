@@ -54,15 +54,13 @@ export const routes: IRoute[] = [
 	}
 ];
 
-export const router = [{ routes }];
-
-export const sidebarMenuList = routes.filter(i => i.showInMenu); // show in sidebar
+export const menuList = routes.filter(i => i.showInMenu); // show in sidebar
 
 export interface IRoute {
 	path: string;
 	name?: string;
 	showInMenu?: boolean;
-	Component: any;
+	Component: FC;
 	Layout: FC;
 	AuthCheck: FC;
 }
