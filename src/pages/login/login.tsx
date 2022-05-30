@@ -7,7 +7,7 @@ import Helmet from '@/components/shared/helmet';
 import { Divider } from '@/styled/shared/divider';
 import { BlockStyled, H1 } from '@/styled/shared';
 import { Flex, FlexItem } from '@/styled/flex';
-import { required } from '@/utils/validator';
+import { required, isEmail } from '@/utils/validator';
 import { userActions } from '@/store/ducks/user';
 import { useActions, useApiFormSubmit, useTranslation } from '@/hooks';
 import { ILoginParams } from '@/services/api/user/types';
@@ -34,7 +34,7 @@ export const Login = () => {
 									{t('Log In')}
 								</H1>
 
-								<FormInput name="username" label={t('Enter E-mail')} validate={required} />
+								<FormInput name="username" label={t('Enter E-mail')} validate={isEmail} />
 
 								<FormInput
 									name="password"

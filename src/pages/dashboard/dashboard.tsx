@@ -7,7 +7,9 @@ import { useApi, useTranslation } from '@/hooks';
 
 export const Dashboard = () => {
 	const { t } = useTranslation();
-	const [{ data = { name: '', priceUsd: '' } }] = useApi(Api.ticker.getAsset, { coin: 'bitcoin' });
+	const {
+		data: { data = { name: '', priceUsd: '' } }
+	} = useApi(Api.ticker.getAsset, { coin: 'bitcoin' });
 
 	return (
 		<>

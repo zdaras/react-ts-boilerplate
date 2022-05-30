@@ -36,8 +36,8 @@ export const login =
 	(p: ILoginParams, redirect?: string): ThunkA =>
 	async dispatch => {
 		try {
-			// const res = await Api.user.login(p);
-			// setAuthHeader(res);
+			const res = await Api.user.login(p);
+			setAuthHeader(res);
 			await dispatch(getCurrentUser(false));
 			if (redirect) dispatch(appActions.routerPush(redirect));
 			return Promise.resolve();

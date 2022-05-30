@@ -65,9 +65,20 @@ const useApi = <T>(
 	}, []);
 
 	// @ts-ignore
-	return [res, loading, error, fetchUrl, fetched, fetchCount, p, reset, requestCount, resetParameters];
+	return { data: res, loading, error, fetchUrl, fetched, fetchCount, p, reset, requestCount, resetParameters };
 };
 
-type IReturn<T> = [ThenArg<T>, boolean, boolean, T, boolean, number, IPagination, () => void, number, () => void];
+type IReturn<T> = {
+	data: ThenArg<T>;
+	loading: boolean;
+	error: boolean;
+	fetchUrl: T;
+	fetched: boolean;
+	fetchCount: number;
+	p: IPagination;
+	reset: () => void;
+	requestCount: number;
+	resetParameters: () => void;
+};
 
 export default useApi;
