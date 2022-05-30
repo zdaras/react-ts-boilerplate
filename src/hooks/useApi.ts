@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import { ThenArg, IPagination } from '@/types';
+import { useEffectOnce } from '@/hooks';
 
 const useApi = <T>(
 	apiCallFunction: T,
@@ -60,9 +61,9 @@ const useApi = <T>(
 
 	const resetParameters = useCallback(() => setParameters(params), []);
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		if (fetchOnMount) fetchUrl();
-	}, []);
+	});
 
 	// @ts-ignore
 	return { data: res, loading, error, fetchUrl, fetched, fetchCount, p, reset, requestCount, resetParameters };
