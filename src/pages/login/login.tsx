@@ -40,7 +40,6 @@ export const Login = () => {
 									name="password"
 									type="password"
 									label={t('Enter Password')}
-									margin="0 0 10px"
 									validate={required}
 									AbsoluteComp={
 										<Link to="/forgot-password">
@@ -49,7 +48,7 @@ export const Login = () => {
 									}
 								/>
 
-								<ErrorText formError={formError} center multiline />
+								<ErrorText center multiline formError={formError} />
 
 								<Divider margin="14px 0">
 									<Button type="submit" text={t('Login')} loading={loading} />

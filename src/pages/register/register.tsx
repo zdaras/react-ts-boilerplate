@@ -57,11 +57,11 @@ export const Register = () => {
 										validate={value => (value !== passwordValue ? 'Does not match' : undefined)}
 									/>
 
+									<ErrorText center formError={formError} />
+
 									<Button type="submit" text={t('Sign Up')} loading={loading} />
 
-									<ErrorText formError={formError} center margin="14px 0 0" />
-
-									<Flex center>
+									<Flex center margin="20px 0 0">
 										<H5 align="center" padding="12px 0 0">
 											{t('Already have an account?')}
 										</H5>

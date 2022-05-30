@@ -36,9 +36,9 @@ const Forgot = () => {
 									{t('Enter your e-mail address to reset your password')}
 								</H5>
 
-								<FormInput name="username" label="Enter E-mail" margin="0" validate={required} />
+								<FormInput name="username" label="Enter E-mail" validate={required} />
 
-								<ErrorText center formError={formError} margin="10px 0" />
+								<ErrorText center formError={formError} />
 
 								<Button type="submit" text={t('Send E-mail')} loading={loading} />
 

@@ -70,7 +70,7 @@ export const PasswordRecovery = () => {
 											showErrorText
 										/>
 
-										<ErrorText formError={formError} center margin="10px 0" />
+										<ErrorText formError={formError} center />
 
 										<Button type="submit" text={t('Confirm')} loading={methods.formState.isSubmitting} />
 									</Divider>

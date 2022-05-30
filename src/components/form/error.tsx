@@ -18,15 +18,15 @@ export const ErrorText: FC<IProps> = ({
 	const txt = show && errorMessage ? errorMessage : '';
 
 	return (
-		<ErrorWrapper center={center} margin={margin} inForm={inForm}>
-			<Text text={txt && show ? txt : ''} center={center} multiline={multiline}>
+		<ErrorWrapper center={center} margin={margin} inForm={inForm} text={txt}>
+			<Text text={txt} center={center} multiline={multiline} inForm={inForm}>
 				{t(txt, formError.params)}
 			</Text>
 		</ErrorWrapper>
 	);
 };
 
-interface IProps {
+export interface IProps {
 	text?: string;
 	formError?: IError;
 	center?: boolean;
