@@ -4,7 +4,8 @@ import { IProps } from '.';
 
 export const StyledTooltip = styled.span<IProps>`
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	cursor: pointer;
 	line-height: unset;
 
@@ -24,16 +25,18 @@ export const StyledTooltip = styled.span<IProps>`
 		position: absolute;
 		background: #ffffff;
 		box-shadow: 0px 2px 15px #65679529;
-		width: ${props => props.width || '210px'};
-		bottom: 118%;
-		left: -110px;
+		min-width: ${props => props.width || '210px'};
+		left: 50%;
+		transform: translateX(-50%) scale(0.94) translateZ(0);
+		backface-visibility: hidden;
+		bottom: 115%;
 		border-radius: 3px;
 		padding: 15px;
 		z-index: 5;
 		font-size: 14px;
 		color: #79798e;
 		cursor: default;
-		transition: all 0.3s ease;
+		transition: all 0.2s ease;
 		transition-delay: 0.1s;
 		opacity: 0;
 		visibility: hidden;
@@ -45,6 +48,8 @@ export const StyledTooltip = styled.span<IProps>`
 		&.tooltip-text:hover {
 			opacity: 1;
 			visibility: visible;
+			bottom: 125%;
+			transform: translateX(-50%) scale(1) translateZ(0);
 		}
 	}
 
@@ -53,6 +58,8 @@ export const StyledTooltip = styled.span<IProps>`
 		~ span.tooltip-text {
 			opacity: 1;
 			visibility: visible;
+			bottom: 125%;
+			transform: translateX(-50%) scale(1) translateZ(0);
 		}
 
 		g,
@@ -64,12 +71,6 @@ export const StyledTooltip = styled.span<IProps>`
 		& svg g[transform='translate(0 -2)'] path {
 			fill: #1d93f7;
 		}
-	}
-
-	&.trans-tooltip > span.tooltip-text {
-		color: #2d2d52;
-		min-width: 300px;
-		padding: 26px 26px 16px;
 	}
 
 	&.mini > span.tooltip-text {
